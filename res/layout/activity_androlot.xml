@@ -1,0 +1,41 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:background="#EFFBF5">
+	
+    <TextView android:id="@+id/main_text_titulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/main_text_titulo_string"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:layout_centerInParent="true"
+        android:gravity="center"/>
+
+	<Button
+	    android:id="@+id/main_btn_numero"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignLeft="@+id/main_btn_resumen"
+	    android:layout_alignParentTop="true"
+	    android:layout_alignRight="@+id/main_btn_resumen"
+	    android:layout_below="@id/main_text_titulo"
+	    android:layout_marginTop="40dp"
+	    android:onClick="consultarNumero"
+	    android:text="@string/main_btn_numero_string" />
+	
+	<Button android:id="@+id/main_btn_resumen"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="40dp"
+	    android:layout_marginRight="40dp"
+	    android:layout_marginTop="10dp"
+	    android:layout_below="@id/main_btn_numero"
+	    android:text="@string/main_btn_resumen_string"
+	    android:onClick="resumenPremios"/>
+	
+	
+
+</RelativeLayout>

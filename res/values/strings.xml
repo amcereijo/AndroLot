@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">AndroLot</string>
+    <string name="title_activity_andro_lot">AndroLot</string>
+    <string name="main_text_titulo_string">Sorteo de Navidad</string>
+    <string name="main_btn_numero_string">Consultar número</string>
+    <string name="main_btn_resumen_string">Resumen de premios</string>
+    <string name="consulta_numero_elemento_numero_string">Número</string>
+    <string name="consulta_numero_elemento_cantidad_string">Cantidad</string>
+    <string name="consulta_numero_elemento_premio_string">Premio</string>
+    <string name="comprobar_premios_string">Comprobar premios</string>
+    <string name="aniadir_numero_string">+</string>
+    <string name="aniadir_numero_cantidad_string">cantidad</string>
+    <string name="aniadir_numero_numero_string">número</string>
+    <string name="error_aniadir_numero_string">Introduce número y cantidad</string>
+    <string name="titulo_premios_string">Premios</string>
+    <string name="premio_gordo_string">Gordo:</string>
+    <string name="premio_2_string">2º premio:</string>
+    <string name="premio_3_string">3º premio:</string>
+    <string name="premio_4_string">4º premio:</string>
+    <string name="premio_4_1_string">4º premio:</string>
+    <string name="premio_5_string">5º premio:</string>
+    <string name="premio_5_1_string">5º premio:</string>
+    <string name="premio_5_2_string">5º premio:</string>
+    <string name="premio_5_3_string">5º premio:</string>
+    <string name="premio_5_4_string">5º premio:</string>
+    <string name="premio_5_5_string">5º premio:</string>
+    <string name="premio_5_6_string">5º premio:</string>
+    <string name="premio_5_7_string">5º premio:</string>
+
+    
+    
+
+</resources>

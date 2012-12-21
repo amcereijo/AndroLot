@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#EFFBF5">
+    
+    <RelativeLayout android:id="@+id/aniadir_numero"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true">
+        
+        <EditText android:id="@+id/aniadir_numero_numero"
+            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:hint="@string/aniadir_numero_numero_string"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:inputType="number"
+            />
+        <EditText android:id="@+id/aniadir_numero_cantidad"
+            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:hint="@string/aniadir_numero_cantidad_string"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/aniadir_numero_numero"
+            android:inputType="number"
+            />
+        <Button 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="aniadirNumero"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/aniadir_numero_cantidad"
+            android:text="@string/aniadir_numero_string"
+            android:textStyle="bold"/>
+        <Button 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="comprobarNumeros"
+            android:layout_centerInParent="true"
+            android:layout_below="@id/aniadir_numero_cantidad"
+            android:text="@string/comprobar_premios_string"/>
+        
+    </RelativeLayout>
+    <ScrollView 
+        android:layout_below="@id/aniadir_numero"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout android:id="@+id/aniadir_numero_lista"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+			android:orientation="vertical"
+			android:padding="10dp"
+		    android:paddingBottom="1dp">
+		    
+            <LinearLayout android:id="@+id/aniadir_numero_titulo"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:orientation="horizontal" 
+			    android:paddingBottom="2dp">
+			
+			    <TextView
+			        android:id="@+id/consulta_numero_elemento_numero"
+			        android:layout_width="100dp"
+			        android:layout_height="wrap_content" 
+			        android:textColor="@android:color/black"
+			        android:background="@android:color/white"
+			        android:padding="10dp"
+			        android:text="@string/consulta_numero_elemento_numero_string"
+			        android:textStyle="bold"/>
+				
+			    <TextView
+			        android:id="@+id/consulta_numero_elemento_cantidad"
+			        android:layout_width="80dp"
+			        android:layout_height="wrap_content"
+			        android:textColor="@android:color/black"
+			        android:background="@android:color/white"
+			        android:padding="10dp"
+			        android:text="@string/consulta_numero_elemento_cantidad_string"
+			        android:textStyle="bold"/>
+			    
+			    <TextView
+			        android:id="@+id/consulta_numero_elemento_premio"
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:textColor="@android:color/black"
+			        android:background="@android:color/white"
+			        android:padding="10dp"
+			        android:text="@string/consulta_numero_elemento_premio_string"
+			        android:textStyle="bold"/>
+			
+			</LinearLayout>
+            
+            
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
