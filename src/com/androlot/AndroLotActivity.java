@@ -108,9 +108,9 @@ public class AndroLotActivity extends Activity {
 								TextView textoPremio = (TextView)elementoNumero.findViewById(R.id.consulta_numero_elemento_premio);
 								if(!"0".equals(respuestaNumero.getPremio()) && respuestaNumero.getPremio()!=null){
 									int premio = Integer.parseInt(respuestaNumero.getPremio());
-									premio = ((premio/10)/20);
+									premio = premio/20;
 									int cantidad = Integer.parseInt(textoCantidad.getText().toString());
-									textoPremio.setText(cantidad*premio);
+									textoPremio.setText(String.valueOf(cantidad*premio));
 								}else{
 									textoPremio.setText(respuestaNumero.getPremio());
 								}
