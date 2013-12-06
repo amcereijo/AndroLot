@@ -1,5 +1,7 @@
 package com.androlot;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,9 +12,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.androlot.controller.ServiceController;
+import com.androlot.db.GameDbHelper;
 import com.androlot.dto.PeticionDto;
 import com.androlot.dto.RespuestaNumeroDto;
 import com.androlot.dto.RespuestaResumenDto;
+import com.androlot.dto.TicketDto;
 import com.androlot.exception.RespuestaErrorException;
 import com.androlot.http.AndrolotHttp;
 
@@ -22,16 +27,18 @@ import com.androlot.http.AndrolotHttp;
  *
  */
 public class AndroLotActivity extends Activity {
-
+	
+	private ServiceController serviceController;
 	private boolean principalShow = true;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_androlot);
+		serviceController = new ServiceController();
 	}
 
-	
+
 	@Override
 	public void onBackPressed() {
 		if(principalShow){
@@ -49,6 +56,15 @@ public class AndroLotActivity extends Activity {
 	public void consultarNumero(View v){
 		setContentView(R.layout.consulta_numero);
 		principalShow = false;
+		loadSavedNumbers();
+	}
+	
+	
+	private void loadSavedNumbers() {
+		List<TicketDto> tickets = new GameDbHelper(this).getTickets();
+		for(TicketDto ticket : tickets){
+			aniadirNumeroALista(ticket);
+		}
 	}
 	
 	/**
@@ -63,25 +79,38 @@ public class AndroLotActivity extends Activity {
 				"".equals(cantidad.getText().toString()) || cantidad.getText().toString()==null){
 			Toast.makeText(getApplicationContext(), R.string.error_aniadir_numero_string, Toast.LENGTH_LONG).show();
 		}else{
-			aniadirNumeroALista(numero, cantidad);
+			TicketDto ticket = new TicketDto();
+			ticket.setNumber(Integer.parseInt(numero.getText().toString()));
+			ticket.setAmmount(Float.parseFloat(cantidad.getText().toString()));
+			
+			numero.setText("");
+			cantidad.setText("");
+			aniadirNumeroALista(ticket);
+			
+			new GameDbHelper(this).addNumber(ticket);
 		}
 	}
 
 
-	private void aniadirNumeroALista(EditText numero, EditText cantidad) {
+	private void aniadirNumeroALista(TicketDto ticket) {
 		LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
 		LinearLayout layoutElementoNumero =(LinearLayout) inflater.inflate(R.layout.consulta_numero_elemento, null);
 		TextView textoNumero = (TextView)layoutElementoNumero.findViewById(R.id.consulta_numero_elemento_numero);
 		TextView textoCantidad = (TextView)layoutElementoNumero.findViewById(R.id.consulta_numero_elemento_cantidad);
+		TextView textPrice = (TextView)layoutElementoNumero.findViewById(R.id.consulta_numero_elemento_premio);
 		
-		textoNumero.setText(numero.getText());
-		textoCantidad.setText(cantidad.getText());
+		textoNumero.setText(String.valueOf(ticket.getNumber()));
+		String ammount = (ticket.getAmmount() == (int)ticket.getAmmount())?String.valueOf((int)ticket.getAmmount()):
+			String.valueOf(ticket.getAmmount());
+		textoCantidad.setText(ammount);
+		if(ticket.getPrice()>0){
+			textPrice.setText(String.valueOf(ticket.getPrice()));
+		}
 		
 		LinearLayout aniadirNumeroLista = (LinearLayout)findViewById(R.id.aniadir_numero_lista);
 		aniadirNumeroLista.addView(layoutElementoNumero);
 		
-		numero.setText("");
-		cantidad.setText("");
+		
 	}
 	
 	
@@ -183,5 +212,13 @@ public class AndroLotActivity extends Activity {
 			}
 		}).start();
 	}
+
 	
+	public void startService(View v){
+		serviceController.startService(this);
+	}
+	
+	public void stopService(View v){
+		serviceController.stopService(this);
+	}
 }

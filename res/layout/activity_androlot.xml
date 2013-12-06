@@ -37,5 +37,26 @@
 	    android:onClick="resumenPremios"/>
 	
 	
+	<Button android:id="@+id/main_btn_start"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="40dp"
+	    android:layout_marginRight="40dp"
+	    android:layout_marginTop="10dp"
+	    android:layout_below="@id/main_btn_resumen"
+	    android:text="Start"
+	    android:onClick="startService"/>
+	
+	<Button android:id="@+id/main_btn_stop"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="40dp"
+	    android:layout_marginRight="40dp"
+	    android:layout_marginTop="10dp"
+	    android:layout_below="@id/main_btn_start"
+	    android:text="Stop"
+	    android:onClick="stopService"/>
+	
+	
 
 </RelativeLayout>
