@@ -103,7 +103,7 @@ public class GameDbHelper extends SQLiteOpenHelper {
 		SQLiteDatabase db = null;
 		try{
 			db = getWritableDatabase();
-			int affected = db.delete(NUMBERS_TABLE, "number=?", new String[]{number});
+			int affected = db.delete(NUMBERS_TABLE, NUMBER_FIELD+"=?", new String[]{number});
 			if(affected==0){
 				Log.e(TAG, "Error deleting ticket :"+number);
 			}
@@ -123,7 +123,7 @@ public class GameDbHelper extends SQLiteOpenHelper {
 			ContentValues values = new ContentValues();
 			values.put(AMMOUNT_FIELD, ticket.getAmmount());
 			values.put(PRICE_FIELD, ticket.getPrice());
-			int affected = db.update(NUMBERS_TABLE, values, "number=?", new String[]{String.valueOf(ticket.getNumber())});
+			int affected = db.update(NUMBERS_TABLE, values, NUMBER_FIELD+"=?", new String[]{String.valueOf(ticket.getNumber())});
 			if(affected==0){
 				Log.e(TAG, "Error updating ticket :"+ticket.getNumber());
 			}
