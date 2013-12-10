@@ -7,6 +7,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import android.util.Log;
+
 import com.androlot.dto.PeticionDto;
 import com.androlot.dto.RespuestaNumeroDto;
 import com.androlot.dto.RespuestaResumenDto;
@@ -43,6 +45,7 @@ public class AndrolotHttp {
 			//--error?
 		if(respuestaNumeroDto.getError() == SorteoDto.RESPUESTA_ERROR){
 			//exception
+			Log.e("", "Respesta error:"+jsonRespuesta);
 			throw new RespuestaErrorException();
 		}
 		return respuestaNumeroDto;

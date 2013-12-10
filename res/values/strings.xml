@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">AndroLot</string>
+    <string name="app_name">LotoNaviDroid</string>
     <string name="title_activity_andro_lot">AndroLot</string>
     <string name="main_text_titulo_string">Sorteo de Navidad</string>
-    <string name="main_btn_numero_string">Consultar número</string>
+    <string name="main_btn_numero_string">Mis numeros</string>
     <string name="main_btn_resumen_string">Resumen de premios</string>
     <string name="consulta_numero_elemento_numero_string">Número</string>
     <string name="consulta_numero_elemento_cantidad_string">Cantidad</string>
@@ -30,6 +30,8 @@
     <string name="premio_5_7_string">5º premio:</string>
 
     <string name="androlot_service">androlot_service</string>
+    
+    <string name="delete_number_string">-</string>
     
 
 </resources>

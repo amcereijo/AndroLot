@@ -23,7 +23,6 @@ public class ServiceController {
 	
 	public void startService(Context c){
 		intentService = new Intent(c, AndroLotService.class);
-		
 		ChristmasProperties cP = new ManagerPropertiesLoader<ChristmasProperties>().loadProperties(c, new ChristmasProperties());
 		
 		Calendar calendar = Calendar.getInstance();
