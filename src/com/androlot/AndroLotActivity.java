@@ -150,7 +150,7 @@ public class AndroLotActivity extends Activity {
 		LinearLayout aniadirNumeroLista = (LinearLayout) findViewById(R.id.aniadir_numero_lista);
 		for(int pos=0;pos<tickets.size();pos++){
 			final TicketDto ticket = tickets.get(pos);
-			final LinearLayout numberElement = (LinearLayout)aniadirNumeroLista.getChildAt(pos);
+			final LinearLayout numberElement = (LinearLayout)aniadirNumeroLista.getChildAt(pos+1);
 			new Thread(new CheckNumberPrice(ticket, numberElement)).start();
 		}
 	}
