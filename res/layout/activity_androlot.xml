@@ -36,8 +36,9 @@
 	    android:layout_marginRight="40dp"
 	    android:layout_marginTop="10dp"
 	    android:layout_below="@id/main_btn_resumen"
-	    android:text="Start"
-	    android:onClick="startService"/>
+	    android:text="@string/game_monitor"
+	    android:onClick="startService"
+	    />
 	
 	<Button android:id="@+id/main_btn_stop"
 	    android:layout_width="match_parent"
