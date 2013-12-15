@@ -20,6 +20,7 @@ import com.androlot.dto.RespuestaNumeroDto;
 import com.androlot.dto.TicketDto;
 import com.androlot.exception.RespuestaErrorException;
 import com.androlot.http.AndrolotHttp;
+import com.androlot.util.SharedPreferencesUtil;
 
 public class AndroLotService extends Service {
 	
@@ -65,6 +66,7 @@ public class AndroLotService extends Service {
 				Log.i("alServiceThread", "Execute...");
 				final GameDbHelper gDbHelper = new GameDbHelper(c);
 				List<TicketDto> tickets = gDbHelper.getTickets();
+				SharedPreferencesUtil.saveLastCheck(c);
 				for(TicketDto ticket : tickets){
 					PeticionDto peticionDto = new PeticionDto();
 					peticionDto.setNumero(String.valueOf(ticket.getNumber()));
@@ -109,8 +111,11 @@ public class AndroLotService extends Service {
 			    new NotificationCompat.Builder(c)
 			    .setSmallIcon(R.drawable.ic_launcher)
 			    .setContentTitle("Aviso de premio")
-			    .setContentText(message);
+			    .setContentText(message)
+			    .setAutoCancel(Boolean.TRUE);
 			Intent resultIntent = new Intent(c, AndroLotActivity.class);
+			resultIntent.putExtra("action", AndroLotActivity.Actions.MyNumbers.toString());
+			
 			TaskStackBuilder stackBuilder = TaskStackBuilder.create(c);
 			stackBuilder.addParentStack(AndroLotActivity.class);
 			// Adds the Intent that starts the Activity to the top of the stack

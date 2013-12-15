@@ -9,14 +9,17 @@
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:orientation="vertical"
+	    android:paddingTop="4dp"
 	    >
 	    
        <TextView android:id="@+id/lista_premios_lista_titulo"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:text="Consultando números premiados, aguanta la respiración..."
+	        android:text="@string/checking_prices"
 	        android:textStyle="bold"
-	        android:layout_marginTop="10dp"
+	        android:layout_marginTop="100dp"
+	        android:textColor="@android:color/black"
+       		android:textSize="20sp"
 	        android:gravity="center"/>
         
        <LinearLayout android:id="@+id/lista_premios_lista_cabecera" 
@@ -26,22 +29,7 @@
 		    android:padding="10dp"
 		    android:paddingBottom="1dp"
 		    android:visibility="gone">
-		    <TextView
-		        android:id="@+id/lista_premio"
-		        android:layout_width="160dp"
-		        android:layout_height="wrap_content" 
-		        android:textColor="@android:color/black"
-		        android:textStyle="bold"
-		        android:text="Premio"/>
-		
-		    <TextView
-		        android:id="@+id/lista_numero"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:textColor="@android:color/black"
-		        android:textStyle="bold"
-		        android:text="Cantidad"/>
-		
+		   
 		</LinearLayout> 
        
        

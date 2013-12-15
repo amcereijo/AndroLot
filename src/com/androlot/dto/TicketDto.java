@@ -29,4 +29,13 @@ public class TicketDto implements Serializable {
 		this.price = price;
 	}
 	
+	public String getNumberComplete(){
+		String stringNumber = String.valueOf(number);
+		int times = 5-stringNumber.length();
+		StringBuffer strb = new StringBuffer();
+		for(int pos = 0;pos<times;pos++){
+			strb.append("0");
+		}
+		return strb.append(stringNumber).toString();
+	}
 }

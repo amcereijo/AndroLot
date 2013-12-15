@@ -1,42 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal" 
-    android:paddingBottom="2dp">
+    android:layout_margin="4dp"
+    android:background="@android:color/white">
 
     <TextView
         android:id="@+id/consulta_numero_elemento_numero"
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content" 
         android:textColor="@android:color/black"
         android:textStyle="bold"
-        android:background="@android:color/white"
-        android:padding="10dp"/>
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:paddingLeft="2dp"/>
 	
-    <TextView
-        android:id="@+id/consulta_numero_elemento_cantidad"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
-        android:background="@android:color/white"
-        android:padding="10dp"/>
-    
-    <TextView
-        android:id="@+id/consulta_numero_elemento_premio"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
-        android:background="@android:color/white"
-        android:padding="10dp"/>
-    
     <Button 
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:onClick="deleteNumber"
-         android:layout_gravity="right"
-         android:text="@string/delete_number_string"
-         android:textStyle="bold"
-         android:padding="0dp"/>
+         android:drawableStart="@drawable/list_remove"
+         android:background="@null"
+         android:layout_alignParentRight="true"
+         android:layout_centerVertical="true"
+         android:padding="0dp"
+         />
 
-</LinearLayout>
+</RelativeLayout>

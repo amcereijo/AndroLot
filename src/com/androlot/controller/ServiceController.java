@@ -2,6 +2,8 @@ package com.androlot.controller;
 
 import java.util.Calendar;
 
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningServiceInfo;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -55,7 +57,21 @@ public class ServiceController {
 		if(intentService!=null){
 			c.stopService(intentService);
 			intentService = null;
+		}else if(isMyServiceRunning(c)){
+			intentService = new Intent(c, AndroLotService.class);
+        	c.stopService(intentService);
+        	intentService = null;
 		}
+	}
+	
+	private boolean isMyServiceRunning(Context c) {
+	    ActivityManager manager = (ActivityManager) c.getSystemService(Context.ACTIVITY_SERVICE);
+	    for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+	        if (AndroLotService.class.getName().equals(service.service.getClassName())) {
+	            return true;
+	        }
+	    }
+	    return false;
 	}
 	
 	

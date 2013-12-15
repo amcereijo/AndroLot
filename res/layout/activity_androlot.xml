@@ -4,15 +4,6 @@
     android:layout_height="match_parent" 
     android:background="#EFFBF5">
 	
-    <TextView android:id="@+id/main_text_titulo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/main_text_titulo_string"
-        android:textStyle="bold"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="20dp"
-        android:layout_centerInParent="true"
-        android:gravity="center"/>
 
 	<Button
 	    android:id="@+id/main_btn_numero"
@@ -21,10 +12,10 @@
 	    android:layout_alignLeft="@+id/main_btn_resumen"
 	    android:layout_alignParentTop="true"
 	    android:layout_alignRight="@+id/main_btn_resumen"
-	    android:layout_below="@id/main_text_titulo"
 	    android:layout_marginTop="40dp"
 	    android:onClick="consultarNumero"
-	    android:text="@string/main_btn_numero_string" />
+	    android:text="@string/main_btn_numero_string"
+	    android:drawableLeft="@drawable/my_numbers" />
 	
 	<Button android:id="@+id/main_btn_resumen"
 	    android:layout_width="match_parent"
@@ -34,7 +25,8 @@
 	    android:layout_marginTop="10dp"
 	    android:layout_below="@id/main_btn_numero"
 	    android:text="@string/main_btn_resumen_string"
-	    android:onClick="resumenPremios"/>
+	    android:onClick="resumenPremios"
+	    android:drawableLeft="@drawable/prices"/>
 	
 	
 	<Button android:id="@+id/main_btn_start"
@@ -57,6 +49,14 @@
 	    android:text="Stop"
 	    android:onClick="stopService"/>
 	
-	
+	<TextView android:id="@+id/bottom_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bottom_text"
+        android:textStyle="bold"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:layout_centerInParent="true"
+        android:gravity="center"/>
 
 </RelativeLayout>

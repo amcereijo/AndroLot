@@ -4,12 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#EFFBF5">
+   
     
     <RelativeLayout android:id="@+id/aniadir_numero"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true">
+        android:layout_alignParentLeft="true"
+        android:paddingTop="4dp">
         
         <EditText android:id="@+id/aniadir_numero_numero"
             android:layout_height="wrap_content"
@@ -28,73 +30,48 @@
             android:inputType="numberDecimal"
             />
         <Button 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="aniadirNumero"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@id/aniadir_numero_cantidad"
-            android:text="@string/aniadir_numero_string"
-            android:textStyle="bold"/>
-        <Button 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="comprobarNumeros"
-            android:layout_centerInParent="true"
-            android:layout_below="@id/aniadir_numero_cantidad"
-            android:text="@string/comprobar_premios_string"/>
-        
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:onClick="deleteNumber"
+         android:layout_gravity="center_vertical|right"
+         android:drawableStart="@drawable/list_add"
+         android:background="@null"
+         android:textStyle="bold"
+         android:padding="0dp"
+         android:layout_alignParentRight="true"
+         />
+       
     </RelativeLayout>
-    <ScrollView 
+     <Button android:id="@+id/check_prices_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="comprobarNumeros"
+        android:layout_centerInParent="true"
         android:layout_below="@id/aniadir_numero"
+        android:paddingRight="10dp"
+        android:text="@string/comprobar_premios_string"/>
+       
+     <TextView android:id="@+id/lastCheclView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:textColor="@android:color/black"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/check_prices_button"
+        android:paddingLeft="2dp"
+        android:visibility="gone"/>
+     
+     
+    <ScrollView 
+        android:layout_below="@id/lastCheclView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <LinearLayout android:id="@+id/aniadir_numero_lista"
+         <LinearLayout android:id="@+id/aniadir_numero_lista"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 			android:orientation="vertical"
-			android:padding="10dp"
-		    android:paddingBottom="1dp">
-		    
-            <LinearLayout android:id="@+id/aniadir_numero_titulo"
-			    android:layout_width="match_parent"
-			    android:layout_height="wrap_content"
-			    android:orientation="horizontal" 
-			    android:paddingBottom="2dp">
-			
-			    <TextView
-			        android:id="@+id/consulta_numero_elemento_numero"
-			        android:layout_width="100dp"
-			        android:layout_height="wrap_content" 
-			        android:textColor="@android:color/black"
-			        android:background="@android:color/white"
-			        android:padding="10dp"
-			        android:text="@string/consulta_numero_elemento_numero_string"
-			        android:textStyle="bold"/>
-				
-			    <TextView
-			        android:id="@+id/consulta_numero_elemento_cantidad"
-			        android:layout_width="80dp"
-			        android:layout_height="wrap_content"
-			        android:textColor="@android:color/black"
-			        android:background="@android:color/white"
-			        android:padding="10dp"
-			        android:text="@string/consulta_numero_elemento_cantidad_string"
-			        android:textStyle="bold"/>
-			    
-			    <TextView
-			        android:id="@+id/consulta_numero_elemento_premio"
-			        android:layout_width="match_parent"
-			        android:layout_height="wrap_content"
-			        android:textColor="@android:color/black"
-			        android:background="@android:color/white"
-			        android:padding="10dp"
-			        android:text="@string/consulta_numero_elemento_premio_string"
-			        android:textStyle="bold"/>
-			
-			</LinearLayout>
-            
-            
-        </LinearLayout>
+			android:padding="0dp">
+		     
+        </LinearLayout>  
     </ScrollView>
 
 </RelativeLayout>
