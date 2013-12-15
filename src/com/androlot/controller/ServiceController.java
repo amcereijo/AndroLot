@@ -9,8 +9,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
-import com.androlot.manager.ChristmasProperties;
-import com.androlot.manager.ManagerPropertiesLoader;
+import com.androlot.game.GameTime;
 import com.androlot.service.AndroLotService;
 
 public class ServiceController {
@@ -25,15 +24,15 @@ public class ServiceController {
 	
 	public void startService(Context c){
 		intentService = new Intent(c, AndroLotService.class);
-		ChristmasProperties cP = new ManagerPropertiesLoader<ChristmasProperties>().loadProperties(c, new ChristmasProperties());
 		
-		Calendar calendar = Calendar.getInstance();
-		if(isTimeToStart(calendar, cP)){
+		
+		GameTime gameTime = new GameTime(c);
+		if(gameTime.isNotTimeToStart()){
 			
 			pintent = PendingIntent.getService(c, 0, intentService, 0);
 			alarm = (AlarmManager)c.getSystemService(Context.ALARM_SERVICE);
 			
-			setGameDate(cP, calendar);
+			Calendar calendar = gameTime.getGameDate();
 
 			alarm.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pintent);
 		}else{
@@ -42,12 +41,7 @@ public class ServiceController {
 	}
 
 
-	protected void setGameDate(ChristmasProperties cP, Calendar calendar) {
-		calendar.set(Calendar.DECEMBER, Integer.parseInt(cP.getMonth())-1);
-		calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(cP.getDay()));
-		calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(cP.getHour()));
-		calendar.set(Calendar.MINUTE, Integer.parseInt(cP.getMin()));
-	}
+	
 
 	
 	public void stopService(Context c){
@@ -75,10 +69,5 @@ public class ServiceController {
 	}
 	
 	
-	protected boolean isTimeToStart(Calendar c, ChristmasProperties cP) {
-		return c.get(Calendar.DECEMBER)+1 != Integer.parseInt(cP.getMonth()) ||
-				c.get(Calendar.DAY_OF_MONTH) != Integer.parseInt(cP.getDay()) ||
-				c.get(Calendar.HOUR_OF_DAY) < Integer.parseInt(cP.getHour()) ||
-				c.get(Calendar.MINUTE) < Integer.parseInt(cP.getMin());
-	}
+	
 }
