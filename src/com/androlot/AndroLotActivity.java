@@ -1,21 +1,24 @@
 package com.androlot;
 
-import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningServiceInfo;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.androlot.controller.ServiceController;
 import com.androlot.db.GameDbHelper;
@@ -25,6 +28,7 @@ import com.androlot.dto.RespuestaResumenDto;
 import com.androlot.dto.TicketDto;
 import com.androlot.exception.RespuestaErrorException;
 import com.androlot.http.AndrolotHttp;
+import com.androlot.service.AndroLotService;
 import com.androlot.util.SharedPreferencesUtil;
 
 /**
@@ -34,6 +38,9 @@ import com.androlot.util.SharedPreferencesUtil;
  */
 public class AndroLotActivity extends Activity {
 	
+	private static final String MY_NUMBER_TIME_CHECKED = "Comprobado a las <b>%s</b>";
+
+
 	public enum Actions{
 		MyNumbers
 	}
@@ -41,6 +48,9 @@ public class AndroLotActivity extends Activity {
 	private boolean principalShow = true;
 	private List<TicketDto> tickets;
 	private final static String TITLE_FORMAT = "%s - %s";
+	private final static String MY_NUMBER = "Juegas <b>%s€</b> al numero";
+	private final static String MY_NUMBER_WIN = "<b>Has ganado %s€</b>";
+	private final static String MY_NUMBER_NO_PRICE = "No hay premio";
 	private GameDbHelper gameDbHelper;
 	
 	
@@ -48,6 +58,8 @@ public class AndroLotActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_androlot);
+		checkServiceRunning();
+		
 		serviceController = new ServiceController();
 		setTitle(String.format(TITLE_FORMAT, getResources().getString(R.string.app_name), 
 				getResources().getString(R.string.main_text_titulo_string)));
@@ -55,9 +67,19 @@ public class AndroLotActivity extends Activity {
 		gameDbHelper = new GameDbHelper(this);
 		if(getIntent().getExtras()!=null && Actions.MyNumbers.toString().equals(getIntent().getStringExtra("action"))){
 			initializeMyNumbers();
+			((Button)findViewById(R.id.check_prices_button)).requestFocus();
 		}
 	}
 
+	
+	private void checkServiceRunning(){
+		ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+	    for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+	        if (AndroLotService.class.getName().equals(service.service.getClassName())) {
+	            ((ToggleButton)findViewById(R.id.service_button)).setChecked(Boolean.TRUE);
+	        }
+	    }
+	}
 
 	protected void initializeMyNumbers() {
 		consultarNumero(null);
@@ -73,6 +95,7 @@ public class AndroLotActivity extends Activity {
 			principalShow = true;
 			setTitle(String.format(TITLE_FORMAT, getResources().getString(R.string.app_name),
 					getResources().getString(R.string.main_text_titulo_string)));
+			checkServiceRunning();
 		}
 	}
 	
@@ -129,9 +152,9 @@ public class AndroLotActivity extends Activity {
 	 * @param v
 	 */
 	public void deleteNumber (View v){
-		LinearLayout numberLayout = (LinearLayout) v.getParent();
+		RelativeLayout numberLayout = (RelativeLayout) v.getParent();
 		
-		TextView numero = (TextView) numberLayout.findViewById(R.id.consulta_numero_elemento_numero);
+		TextView numero = (TextView) numberLayout.findViewById(R.id.check_number_element_number);
 		gameDbHelper.removeTicket(numero.getText().toString());
 		deleteTicketFromList(numero.getText().toString());
 		
@@ -156,16 +179,20 @@ public class AndroLotActivity extends Activity {
 		
 		RelativeLayout layoutElementoNumero =(RelativeLayout)LayoutInflater.from(this).inflate(R.layout.consulta_numero_elemento, aniadirNumeroLista, false);
 		
-		TextView textoNumero = (TextView)layoutElementoNumero.findViewById(R.id.consulta_numero_elemento_numero);
+		TextView numberTextText = (TextView)layoutElementoNumero.findViewById(R.id.check_number_element_text);
+		TextView numberText = (TextView)layoutElementoNumero.findViewById(R.id.check_number_element_number);
+		TextView priceText = (TextView)layoutElementoNumero.findViewById(R.id.check_number_element_result);
 		
-		String text = String.format("Juegas %s€ al numero %s.", ticket.getAmmount(),ticket.getNumberComplete());
+		numberTextText.setText(Html.fromHtml(String.format(MY_NUMBER, ticket.getAmmount())));
+		numberText.setText(ticket.getNumberComplete());
+		String price = "";
 		if(ticket.getPrice()>0){
-			text += String.format(" Has ganado %s€", ticket.getPrice());
+			price = String.format(MY_NUMBER_WIN, ticket.getPrice());
 		}else{
-			text += " No hay premio"; 
+			price = MY_NUMBER_NO_PRICE; 
 		}
 		
-		textoNumero.setText(text);
+		priceText.setText(Html.fromHtml(price));
 		
 		aniadirNumeroLista.addView(layoutElementoNumero);
 	}
@@ -180,17 +207,25 @@ public class AndroLotActivity extends Activity {
 		for(int pos=0;pos<tickets.size();pos++){
 			final TicketDto ticket = tickets.get(pos);
 			final RelativeLayout numberElement = (RelativeLayout)aniadirNumeroLista.getChildAt(pos);
-			new Thread(new CheckNumberPrice(ticket, numberElement)).start();
+			
+			final Button checkButton = (Button)findViewById(R.id.check_prices_button);
+			checkButton.setText(R.string.checking_prices_string);
+			
+			UpdateButton updateButtom = null;
+			if(pos == tickets.size()-1) { updateButtom = new UpdateButton(checkButton, R.string.check_prices_string); }
+			
+			new Thread(new CheckNumberPrice(ticket, numberElement, updateButtom) ).start();
 			
 			String moment =  SharedPreferencesUtil.saveLastCheck(this);
 			showLastCheck(moment);
 		}
 	}
 
+	
 
 	protected void showLastCheck(String moment) {
 		TextView lastUpdateText = (TextView)findViewById(R.id.lastCheclView);
-		lastUpdateText.setText("Comprobado a las "+moment);
+		lastUpdateText.setText(Html.fromHtml(String.format(MY_NUMBER_TIME_CHECKED, moment)));
 		lastUpdateText.setVisibility(View.VISIBLE);
 	}
 
@@ -198,10 +233,12 @@ public class AndroLotActivity extends Activity {
 	private class CheckNumberPrice implements Runnable{
 		final TicketDto ticket;
 		final View numberElement;
+		final UpdateButton updateButtom;
 		
-		public CheckNumberPrice(TicketDto ticket, View layout) {
+		public CheckNumberPrice(TicketDto ticket, View layout, UpdateButton updateButtom) {
 			this.ticket = ticket;
 			this.numberElement = layout;
+			this.updateButtom = updateButtom;
 		}
 		
 		@Override
@@ -213,27 +250,27 @@ public class AndroLotActivity extends Activity {
 				runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
-						//TextView textoPremio = (TextView)numberElement.findViewById(R.id.consulta_numero_elemento_premio);
-						TextView textoNumero = (TextView)numberElement.findViewById(R.id.consulta_numero_elemento_numero);
 						
-						String valueTextoNumero = String.format("Juegas %s€ al numero %s.", ticket.getAmmount(),ticket.getNumberComplete());
+						TextView priceText = (TextView)numberElement.findViewById(R.id.check_number_element_result);
 						
+						String price = "";
 						if(!"0".equals(respuestaNumero.getPremio()) && respuestaNumero.getPremio()!=null){
 							int premio = Integer.parseInt(respuestaNumero.getPremio());
 							premio = premio/20;
-							//textoPremio.setText(String.valueOf(ticket.getAmmount()*premio));
-							valueTextoNumero += String.format(" Has ganado %s€", String.valueOf(ticket.getAmmount()*premio));
+							price = String.format(MY_NUMBER_WIN, String.valueOf(ticket.getAmmount()*premio));
 							ticket.setPrice(ticket.getAmmount()*premio);
 						}else{
-							//textoPremio.setText(respuestaNumero.getPremio());
-							valueTextoNumero += " No hay premio"; 
+							price = MY_NUMBER_NO_PRICE;
 							ticket.setPrice(0);
 						}
 						
-						textoNumero.setText(valueTextoNumero);
+						priceText.setText(Html.fromHtml(price));
 						
 						gameDbHelper.updateTicket(ticket);
 						
+						if(updateButtom!=null){
+							updateButtom.changeMessage();
+						}
 					}
 				});
 			} catch (RespuestaErrorException e) {
@@ -244,7 +281,10 @@ public class AndroLotActivity extends Activity {
 		}
 	}
 	
-	
+	/**
+	 * 
+	 * @param v
+	 */
 	public void resumenPremios(View v){
 		setContentView(R.layout.lista_premios_layout);
 		principalShow = false;
@@ -311,12 +351,39 @@ public class AndroLotActivity extends Activity {
 		}
 	}
 	
-	
-	public void startService(View v){
-		serviceController.startService(this);
+	/**
+	 * 
+	 * @param v
+	 */
+	public void toggleService(View v){
+		boolean on = ((ToggleButton) v).isChecked();
+	    if (on) {
+	    	serviceController.startService(this);
+	    } else {
+	    	serviceController.stopService(this);
+	    }
 	}
 	
-	public void stopService(View v){
-		serviceController.stopService(this);
+	/**
+	 * 
+	 * @param v
+	 */
+	public void showHelp(View v){
+		setContentView(R.layout.help);
+		setTitle(String.format(TITLE_FORMAT, getResources().getString(R.string.app_name), 
+				getResources().getString(R.string.help_text)));
+		principalShow = false;
+	}
+	
+	class UpdateButton {
+		private Button button;
+		private int message;
+		public UpdateButton(Button button, int message){
+			this.button = button;
+			this.message = message;
+		}
+		public void changeMessage(){
+			this.button.setText(message);
+		}
 	}
 }

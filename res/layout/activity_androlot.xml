@@ -13,9 +13,12 @@
 	    android:layout_alignParentTop="true"
 	    android:layout_alignRight="@+id/main_btn_resumen"
 	    android:layout_marginTop="40dp"
+	    android:padding="10dp"
 	    android:onClick="consultarNumero"
 	    android:text="@string/main_btn_numero_string"
-	    android:drawableLeft="@drawable/my_numbers" />
+	    android:drawableLeft="@drawable/my_numbers" 
+	    android:background="@drawable/button_styles"
+	    android:textColor="@android:color/white"/>
 	
 	<Button android:id="@+id/main_btn_resumen"
 	    android:layout_width="match_parent"
@@ -23,32 +26,44 @@
 	    android:layout_marginLeft="40dp"
 	    android:layout_marginRight="40dp"
 	    android:layout_marginTop="10dp"
+	    android:padding="10dp"
 	    android:layout_below="@id/main_btn_numero"
 	    android:text="@string/main_btn_resumen_string"
 	    android:onClick="resumenPremios"
-	    android:drawableLeft="@drawable/prices"/>
+	    android:drawableLeft="@drawable/prices"
+	    android:background="@drawable/button_styles"
+	    android:textColor="@android:color/white"/>
 	
 	
-	<Button android:id="@+id/main_btn_start"
+	
+	
+	<ToggleButton android:id="@+id/service_button"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:layout_marginLeft="40dp"
 	    android:layout_marginRight="40dp"
 	    android:layout_marginTop="10dp"
+	    android:padding="10dp"
 	    android:layout_below="@id/main_btn_resumen"
 	    android:text="@string/game_monitor"
-	    android:onClick="startService"
-	    />
+	    android:textOn="@string/service_on_text"
+	    android:textOff="@string/service_off_text"
+	    android:onClick="toggleService"
+	    android:background="@drawable/button_styles"
+	    android:textColor="@android:color/white"
+	    android:textStyle="bold"/>
 	
-	<Button android:id="@+id/main_btn_stop"
-	    android:layout_width="match_parent"
+	
+	<Button android:id="@+id/main_btn_start_help"
+	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
-	    android:layout_marginLeft="40dp"
-	    android:layout_marginRight="40dp"
-	    android:layout_marginTop="10dp"
-	    android:layout_below="@id/main_btn_start"
-	    android:text="Stop"
-	    android:onClick="stopService"/>
+	    android:layout_marginTop="20dp"
+	    android:layout_centerInParent="true"
+	    android:layout_below="@id/service_button"
+	    android:onClick="showHelp"
+	    android:background="@null"
+	    android:drawableRight="@drawable/help"
+	    />
 	
 	<TextView android:id="@+id/bottom_test"
         android:layout_width="match_parent"

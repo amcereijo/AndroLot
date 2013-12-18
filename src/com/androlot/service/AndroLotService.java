@@ -2,6 +2,7 @@ package com.androlot.service;
 
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -17,15 +18,17 @@ import com.androlot.R;
 import com.androlot.db.GameDbHelper;
 import com.androlot.dto.PeticionDto;
 import com.androlot.dto.RespuestaNumeroDto;
+import com.androlot.dto.SorteoDto;
 import com.androlot.dto.TicketDto;
 import com.androlot.exception.RespuestaErrorException;
 import com.androlot.http.AndrolotHttp;
 import com.androlot.util.SharedPreferencesUtil;
 
+@SuppressLint("NewApi")
 public class AndroLotService extends Service {
 	
 	private volatile Thread t;
-	private final static int TIME_TO_WAIT = 1000;// 120000; //2 minutes 
+	private final static int TIME_TO_WAIT = 60000;// 120000; //2 minutes 
 	private final static int MY_ID = 21091982;
 	
 	@Override
@@ -55,7 +58,7 @@ public class AndroLotService extends Service {
 		public AndroLotServiceRunnable(Context c, Service s) {
 			this.c = c;
 			this.s = s;
-			showNotification("Empieza el concurso y la monitorización de premios");
+			showNotification("NaviLotoDroid", R.drawable.ic_launcher, "Empieza el concurso y la monitorización de premios");
 		}
 		
 		
@@ -79,17 +82,15 @@ public class AndroLotService extends Service {
 							gDbHelper.updateTicket(ticket);
 							
 							//create notification
-							showNotification("Tu numero "+ticket.getNumber()+" ha sido premiado con "+ticket.getPrice() +"€");
+							showNotification("Aviso de Premio", R.drawable.ic_launcher, "Tu numero "+ticket.getNumber()+" ha sido premiado con "+ticket.getPrice() +"€");
 							
 						}
 						
-						if( 2 == respuestaNumero.getStatus()){
-							showNotification("El sorteo ha finalizado.");
+						if(SorteoDto.STATUS_SORTEO_TERMINADO_NO_OFICIAL == respuestaNumero.getStatus()){
+							showNotification("NaviLotoDroid", R.drawable.ic_launcher, "El sorteo ha finalizado.");
 							t = null;
 							s.stopSelf();
 						}
-						
-						
 					} catch (RespuestaErrorException e) {
 						Log.e("", "Error looking for a number", e);
 					} catch (Exception e) {
@@ -105,12 +106,12 @@ public class AndroLotService extends Service {
 			}
 		}
 
-
-		protected void showNotification(String message) {
+		
+		protected void showNotification(String title, int icon, String message) {
 			NotificationCompat.Builder mBuilder =
 			    new NotificationCompat.Builder(c)
-			    .setSmallIcon(R.drawable.ic_launcher)
-			    .setContentTitle("Aviso de premio")
+			    .setSmallIcon(icon)
+			    .setContentTitle(title)
 			    .setContentText(message)
 			    .setAutoCancel(Boolean.TRUE);
 			Intent resultIntent = new Intent(c, AndroLotActivity.class);
@@ -131,5 +132,8 @@ public class AndroLotService extends Service {
 		
 		
 	};
+	
+	
+	
 
 }

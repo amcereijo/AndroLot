@@ -32,7 +32,7 @@
         <Button 
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:onClick="deleteNumber"
+         android:onClick="aniadirNumero"
          android:layout_gravity="center_vertical|right"
          android:drawableStart="@drawable/list_add"
          android:background="@null"
@@ -48,8 +48,11 @@
         android:onClick="comprobarNumeros"
         android:layout_centerInParent="true"
         android:layout_below="@id/aniadir_numero"
-        android:paddingRight="10dp"
-        android:text="@string/comprobar_premios_string"/>
+        android:padding="10dp"
+        android:text="@string/check_prices_string"
+        android:background="@drawable/button_styles"
+	    android:textColor="@android:color/white"
+	     android:gravity="center"/>
        
      <TextView android:id="@+id/lastCheclView"
         android:layout_width="wrap_content"

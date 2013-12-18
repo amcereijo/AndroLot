@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
+    <TextView android:id="@+id/help_layout_my_numbers"
+        android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentTop="true"
+	    android:layout_alignParentLeft="true"
+	    android:layout_marginTop="10dp"
+	    android:paddingLeft="20dp"
+	    android:text="@string/main_btn_numero_string"
+	    android:textStyle="bold"
+	    android:textColor="#424242"/>
+    
+     <TextView android:id="@+id/help_layout_my_numbers_text"
+        android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@id/help_layout_my_numbers"
+	    android:layout_alignParentLeft="true"
+	    android:layout_marginTop="2dp"
+	    android:paddingLeft="30dp"
+	    android:text="@string/help_layout_my_numbers_text"
+	    android:textColor="#424242"/>
+    
+     <TextView android:id="@+id/help_layout_resume"
+        android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@id/help_layout_my_numbers_text"
+	    android:layout_alignParentLeft="true"
+	    android:layout_marginTop="10dp"
+	    android:paddingLeft="20dp"
+	    android:text="@string/main_btn_resumen_string"
+	    android:textStyle="bold"
+	    android:textColor="#424242"/>
+    
+     <TextView android:id="@+id/help_layout_resume_text"
+        android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@id/help_layout_resume"
+	    android:layout_alignParentLeft="true"
+	    android:layout_marginTop="2dp"
+	    android:paddingLeft="30dp"
+	    android:text="@string/help_layout_resume_text"
+	    android:textColor="#424242"/>
+     
+     <TextView android:id="@+id/help_layout_service"
+        android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@id/help_layout_resume_text"
+	    android:layout_alignParentLeft="true"
+	    android:layout_marginTop="10dp"
+	    android:paddingLeft="20dp"
+	    android:text="@string/game_monitor"
+	    android:textStyle="bold"
+	    android:textColor="#424242"/>
+    
+     <TextView android:id="@+id/help_layout_service_text"
+        android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@id/help_layout_service"
+	    android:layout_alignParentLeft="true"
+	    android:layout_marginTop="2dp"
+	    android:paddingLeft="30dp"
+	    android:text="@string/help_layout_service_text"
+	    android:textColor="#424242"/>
+
+</RelativeLayout>
