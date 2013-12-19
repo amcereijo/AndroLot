@@ -48,9 +48,7 @@ public class AndroLotActivity extends Activity {
 	private boolean principalShow = true;
 	private List<TicketDto> tickets;
 	private final static String TITLE_FORMAT = "%s - %s";
-	private final static String MY_NUMBER = "Juegas <b>%s€</b> al numero";
-	private final static String MY_NUMBER_WIN = "<b>Has ganado %s€</b>";
-	private final static String MY_NUMBER_NO_PRICE = "No hay premio";
+	
 	private GameDbHelper gameDbHelper;
 	
 	
@@ -185,13 +183,15 @@ public class AndroLotActivity extends Activity {
 		TextView numberText = (TextView)layoutElementoNumero.findViewById(R.id.check_number_element_number);
 		TextView priceText = (TextView)layoutElementoNumero.findViewById(R.id.check_number_element_result);
 		
-		numberTextText.setText(Html.fromHtml(String.format(MY_NUMBER, ticket.getAmmount())));
+		numberTextText.setText(Html.fromHtml(String.format(getString(R.string.my_number_play), ticket.getAmmount())));
 		numberText.setText(ticket.getNumberComplete());
 		String price = "";
 		if(ticket.getPrice()>0){
-			price = String.format(MY_NUMBER_WIN, ticket.getPrice());
+			
+			price = String.format(getString(R.string.my_number_win), String.format("%.2f", ticket.getPrice()));
+			price += getString(R.string.donnate);
 		}else{
-			price = MY_NUMBER_NO_PRICE; 
+			price = getString(R.string.my_number_no_price); 
 		}
 		
 		priceText.setText(Html.fromHtml(price));
@@ -254,17 +254,17 @@ public class AndroLotActivity extends Activity {
 				runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
-						
 						TextView priceText = (TextView)numberElement.findViewById(R.id.check_number_element_result);
-						
 						String price = "";
 						if(!"0".equals(respuestaNumero.getPremio()) && respuestaNumero.getPremio()!=null){
-							int premio = Integer.parseInt(respuestaNumero.getPremio());
-							premio = premio/20;
-							price = String.format(MY_NUMBER_WIN, String.valueOf(ticket.getAmmount()*premio));
+							int premio = (Integer.parseInt(respuestaNumero.getPremio()))/20;
+							float  won = premio*ticket.getAmmount();
+							
+							price = String.format(getString(R.string.my_number_win), String.format("%.2f", won));
+							price += getString(R.string.donnate);
 							ticket.setPrice(ticket.getAmmount()*premio);
 						}else{
-							price = MY_NUMBER_NO_PRICE;
+							price = getString(R.string.my_number_no_price);
 							ticket.setPrice(0);
 						}
 						
