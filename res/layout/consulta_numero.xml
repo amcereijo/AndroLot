@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_width="0dp"
             android:layout_weight=".05"
-            android:text="€"
+            android:text="@string/euro"
             android:textStyle="bold"
             android:gravity="left"
             />
@@ -41,8 +41,7 @@
          android:layout_height="wrap_content"
          android:onClick="aniadirNumero"
          android:layout_gravity="center_vertical|right"
-         android:drawableStart="@drawable/list_add"
-         android:background="@null"
+         android:background="@drawable/list_add"
          android:textStyle="bold"
          android:padding="0dp"
          android:gravity="right"

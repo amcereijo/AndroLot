@@ -46,8 +46,7 @@
          android:layout_width="0dp"
          android:layout_height="wrap_content"
          android:onClick="deleteNumber"
-         android:drawableStart="@drawable/list_remove"
-         android:background="@null"
+         android:background="@drawable/list_remove"
          android:layout_weight=".15"
          android:padding="0dp"
         />
