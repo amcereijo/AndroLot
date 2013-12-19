@@ -41,8 +41,8 @@
     <string name="service_off_text">Monitorizar Sorteo</string>
     
     <string name="help_text">Ayuda</string>
-    <string name="help_layout_my_numbers_text">En \"Mis numeros\" podras ver y guardar los número a los que juegas y consultar si han sido premiados.</string>
+    <string name="help_layout_my_numbers_text">En \"Mis números\" podras ver y guardar los número a los que juegas y consultar si han sido premiados.</string>
     <string name="help_layout_resume_text">En \"Resumen de premios\" podrás ver una lista con los premios más importantes.</string>
-    <string name="help_layout_service_text">Activando la opción \"Monitorizar Sorteo\" activarás una función que te monstrára un notificación sí alguno de tus números guardados recibe un premio.\nEsta función no se activará hasta la fecha de incio del sorteo y se detendrá automáticamente cuando este finalize.</string>
+    <string name="help_layout_service_text">Activando la opción \"Monitorizar Sorteo\" activarás una función que te mostrará una notificación sí alguno de tus números guardados recibe un premio.\nEsta función no se activará hasta la fecha de incio del sorteo y se detendrá automáticamente cuando finalice.</string>
 
 </resources>
