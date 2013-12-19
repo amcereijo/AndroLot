@@ -177,7 +177,8 @@ public class AndroLotActivity extends Activity {
 	private void aniadirNumeroALista(TicketDto ticket) {
 		LinearLayout aniadirNumeroLista = (LinearLayout)findViewById(R.id.aniadir_numero_lista);
 		
-		RelativeLayout layoutElementoNumero =(RelativeLayout)LayoutInflater.from(this).inflate(R.layout.consulta_numero_elemento, aniadirNumeroLista, false);
+		
+		LinearLayout layoutElementoNumero =(LinearLayout)LayoutInflater.from(this).inflate(R.layout.consulta_numero_elemento, aniadirNumeroLista, false);
 		
 		TextView numberTextText = (TextView)layoutElementoNumero.findViewById(R.id.check_number_element_text);
 		TextView numberText = (TextView)layoutElementoNumero.findViewById(R.id.check_number_element_number);
@@ -206,7 +207,7 @@ public class AndroLotActivity extends Activity {
 		LinearLayout aniadirNumeroLista = (LinearLayout) findViewById(R.id.aniadir_numero_lista);
 		for(int pos=0;pos<tickets.size();pos++){
 			final TicketDto ticket = tickets.get(pos);
-			final RelativeLayout numberElement = (RelativeLayout)aniadirNumeroLista.getChildAt(pos);
+			final LinearLayout numberElement = (LinearLayout)aniadirNumeroLista.getChildAt(pos);
 			
 			final Button checkButton = (Button)findViewById(R.id.check_prices_button);
 			checkButton.setText(R.string.checking_prices_string);

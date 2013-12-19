@@ -10,6 +10,7 @@
 	    android:layout_alignParentLeft="true"
 	    android:layout_marginTop="10dp"
 	    android:paddingLeft="20dp"
+	    android:paddingRight="20dp"
 	    android:text="@string/main_btn_numero_string"
 	    android:textStyle="bold"
 	    android:textColor="#424242"/>
@@ -21,6 +22,7 @@
 	    android:layout_alignParentLeft="true"
 	    android:layout_marginTop="2dp"
 	    android:paddingLeft="30dp"
+	    android:paddingRight="20dp"
 	    android:text="@string/help_layout_my_numbers_text"
 	    android:textColor="#424242"/>
     
@@ -31,6 +33,7 @@
 	    android:layout_alignParentLeft="true"
 	    android:layout_marginTop="10dp"
 	    android:paddingLeft="20dp"
+	    android:paddingRight="20dp"
 	    android:text="@string/main_btn_resumen_string"
 	    android:textStyle="bold"
 	    android:textColor="#424242"/>
@@ -42,6 +45,7 @@
 	    android:layout_alignParentLeft="true"
 	    android:layout_marginTop="2dp"
 	    android:paddingLeft="30dp"
+	    android:paddingRight="20dp"
 	    android:text="@string/help_layout_resume_text"
 	    android:textColor="#424242"/>
      
@@ -52,6 +56,7 @@
 	    android:layout_alignParentLeft="true"
 	    android:layout_marginTop="10dp"
 	    android:paddingLeft="20dp"
+	    android:paddingRight="20dp"
 	    android:text="@string/game_monitor"
 	    android:textStyle="bold"
 	    android:textColor="#424242"/>
@@ -62,6 +67,7 @@
 	    android:layout_below="@id/help_layout_service"
 	    android:layout_alignParentLeft="true"
 	    android:layout_marginTop="2dp"
+	    android:paddingRight="20dp"
 	    android:paddingLeft="30dp"
 	    android:text="@string/help_layout_service_text"
 	    android:textColor="#424242"/>
