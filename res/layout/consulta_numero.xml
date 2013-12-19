@@ -19,6 +19,7 @@
             android:layout_weight=".50"
             android:hint="@string/aniadir_numero_numero_string"
             android:inputType="number"
+            android:paddingLeft="4dp"
             />
         <EditText android:id="@+id/aniadir_numero_cantidad"
             android:layout_height="wrap_content"
