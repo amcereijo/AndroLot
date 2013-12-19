@@ -24,7 +24,7 @@ public class SharedPreferencesUtil {
 	
 	public static String readLastCheck(Context context) {
 		SharedPreferences sharedPref = context.getSharedPreferences(FILE_SHARED,Context.MODE_PRIVATE);
-		String moment = sharedPref.getString("lastCheck", "-");
+		String moment = sharedPref.getString("lastCheck", "");
 		return moment;
 	}
 	

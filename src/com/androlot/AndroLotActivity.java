@@ -38,7 +38,7 @@ import com.androlot.util.SharedPreferencesUtil;
  */
 public class AndroLotActivity extends Activity {
 	
-	private static final String MY_NUMBER_TIME_CHECKED = "Comprobado a las <b>%s</b>";
+	private static final String MY_NUMBER_TIME_CHECKED = "Última comprobación a las <b>%s</b>";
 
 
 	public enum Actions{
@@ -129,9 +129,10 @@ public class AndroLotActivity extends Activity {
 	public void aniadirNumero(View v){
 		EditText numero = (EditText)findViewById(R.id.aniadir_numero_numero);
 		EditText cantidad = (EditText)findViewById(R.id.aniadir_numero_cantidad);
-		
-		if("".equals(numero.getText().toString()) || numero.getText().toString()==null ||
-				"".equals(cantidad.getText().toString()) || cantidad.getText().toString()==null){
+		String numberText = numero.getText().toString();
+		String ammountText = cantidad.getText().toString();
+		if(numberText==null || "".equals(numberText) || numberText.length()>5 || 
+			ammountText==null || "".equals(ammountText) ){
 			Toast.makeText(getApplicationContext(), R.string.error_aniadir_numero_string, Toast.LENGTH_LONG).show();
 		}else{
 			TicketDto ticket = new TicketDto();
@@ -152,7 +153,7 @@ public class AndroLotActivity extends Activity {
 	 * @param v
 	 */
 	public void deleteNumber (View v){
-		RelativeLayout numberLayout = (RelativeLayout) v.getParent();
+		LinearLayout numberLayout = (LinearLayout) v.getParent();
 		
 		TextView numero = (TextView) numberLayout.findViewById(R.id.check_number_element_number);
 		gameDbHelper.removeTicket(numero.getText().toString());
@@ -225,9 +226,11 @@ public class AndroLotActivity extends Activity {
 	
 
 	protected void showLastCheck(String moment) {
-		TextView lastUpdateText = (TextView)findViewById(R.id.lastCheclView);
-		lastUpdateText.setText(Html.fromHtml(String.format(MY_NUMBER_TIME_CHECKED, moment)));
-		lastUpdateText.setVisibility(View.VISIBLE);
+		if(moment != null && !"".equals(moment)){
+			TextView lastUpdateText = (TextView)findViewById(R.id.lastCheclView);
+			lastUpdateText.setText(Html.fromHtml(String.format(MY_NUMBER_TIME_CHECKED, moment)));
+			lastUpdateText.setVisibility(View.VISIBLE);
+		}
 	}
 
 
