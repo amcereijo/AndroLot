@@ -37,8 +37,8 @@
     <string name="checking_prices">Consultando números premiados&#8230;</string>
     <string name="game_monitor">Monitorizar Sorteo</string>
     
-    <string name="service_on_text">Deneter monitorizar Sorteo</string>
-    <string name="service_off_text">Monitorizar Sorteo</string>
+    <string name="service_on_text">Deneter monitorizar sorteo</string>
+    <string name="service_off_text">Monitorizar sorteo</string>
     
     <string name="help_text">Ayuda</string>
     <string name="help_layout_my_numbers_text">En \"Mis números\" podrás ver y guardar los números a los que juegas y consultar si han sido premiados.</string>
