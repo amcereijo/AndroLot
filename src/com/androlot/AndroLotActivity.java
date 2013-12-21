@@ -190,7 +190,7 @@ public class AndroLotActivity extends Activity {
 			
 			price = String.format(getString(R.string.my_number_win), String.format("%.2f", ticket.getPrice()));
 			price += getString(R.string.donnate);
-		}else{
+		}else if(ticket.getPrice()!=-1){
 			price = getString(R.string.my_number_no_price); 
 		}
 		

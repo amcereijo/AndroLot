@@ -8,7 +8,7 @@ public class TicketDto implements Serializable {
 	
 	private int number;
 	private float ammount;
-	private float price;
+	private float price = -1;
 	
 	public int getNumber() {
 		return number;
