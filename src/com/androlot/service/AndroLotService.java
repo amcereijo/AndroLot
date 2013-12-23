@@ -58,36 +58,40 @@ public class AndroLotService extends Service {
 		public AndroLotServiceRunnable(Context c, Service s) {
 			this.c = c;
 			this.s = s;
-			showNotification("NaviLotoDroid", R.drawable.ic_launcher, "Empieza el concurso y la monitorización de premios");
+			showNotification(c.getString(R.string.notification_title) , R.drawable.ic_launcher, c.getString(R.string.notification_start_game));
 		}
 		
 		
 		@Override
 		public void run() {
 			Thread thisThread = Thread.currentThread();
+			AndrolotHttp http = new AndrolotHttp();
 			while(t == thisThread){
 				Log.i("alServiceThread", "Execute...");
+				
+				SharedPreferencesUtil.saveLastCheck(c);
+				
 				final GameDbHelper gDbHelper = new GameDbHelper(c);
 				List<TicketDto> tickets = gDbHelper.getTickets();
-				SharedPreferencesUtil.saveLastCheck(c);
+				
 				for(TicketDto ticket : tickets){
 					PeticionDto peticionDto = new PeticionDto();
-					peticionDto.setNumero(String.valueOf(ticket.getNumber()));
+						peticionDto.setNumero(String.valueOf(ticket.getNumber()));
 					try {
-						final RespuestaNumeroDto respuestaNumero = new AndrolotHttp().premioNumero(peticionDto);
+						final RespuestaNumeroDto respuestaNumero = http.premioNumero(peticionDto);
 						if(!"0".equals(respuestaNumero.getPremio()) && respuestaNumero.getPremio()!=null){
 							int premio = Integer.parseInt(respuestaNumero.getPremio());
 							premio = premio/20;
-							ticket.setPrice(ticket.getAmmount()*premio);
-							gDbHelper.updateTicket(ticket);
-							
-							//create notification
-							showNotification("Aviso de Premio", R.drawable.ic_launcher, "Tu numero "+ticket.getNumber()+" ha sido premiado con "+ticket.getPrice() +"€");
-							
+							if(ticket.getPrice()>0){
+								ticket.setPrice(ticket.getAmmount()*premio);
+								gDbHelper.updateTicket(ticket);
+								//create notification
+								showNotification(c.getString(R.string.notification_game_price_title), R.drawable.ic_launcher, 
+										getString(R.string.notification_game_price_text, ticket.getNumber(), ticket.getPrice()));
+							}
 						}
-						
 						if(SorteoDto.STATUS_SORTEO_TERMINADO_NO_OFICIAL == respuestaNumero.getStatus()){
-							showNotification("NaviLotoDroid", R.drawable.ic_launcher, "El sorteo ha finalizado.");
+							showNotification(c.getString(R.string.notification_title), R.drawable.ic_launcher, "El sorteo ha finalizado.");
 							t = null;
 							s.stopSelf();
 						}
@@ -131,9 +135,6 @@ public class AndroLotService extends Service {
 		}
 		
 		
-	};
-	
-	
-	
+	}
 
 }

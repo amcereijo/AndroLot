@@ -49,5 +49,9 @@
 	<string name="my_number_play">Juegas &lt;b&gt;%s€&lt;/b&gt; al número</string>
 	<string name="my_number_win">&lt;b&gt;Has ganado %s€&lt;/b&gt;</string>
 	<string name="my_number_no_price">No hay premio</string>
+    <string name="notification_title">NaviLotoDroid</string>
+    <string name="notification_start_game">Empieza el concurso y la monitorización de premios</string>
+    <string name="notification_game_price_title">Aviso de Premio</string>
+    <string name="notification_game_price_text" formatted="false">Tu numero %s ha sido premiado con %s€</string>
     
 </resources>
