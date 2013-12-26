@@ -19,8 +19,8 @@ public class GameApplication extends Application {
 		GameApplication.gameType = gameType;
 	}
 	
-	public static boolean isServiceRunning(Context context,  Class<?> classType){
-		ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+	public static boolean isServiceRunning(Class<?> classType){
+		ActivityManager manager = (ActivityManager) getInstance().getSystemService(Context.ACTIVITY_SERVICE);
 	    for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
 	        if (classType.getName().equals(service.service.getClassName())) {
 	            return true;

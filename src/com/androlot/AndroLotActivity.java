@@ -72,7 +72,7 @@ public class AndroLotActivity extends Activity {
 	private void createServiceController() {
 		switch(GameApplication.getGameType()){
 			case ChristMas: 
-				serviceController = new ServiceController<AndroLotService>(AndroLotService.class);
+				serviceController = new ServiceController<AndroLotService>(new AndroLotService());
 				break;
 			case Kid: //TODO
 				break;
@@ -96,7 +96,7 @@ public class AndroLotActivity extends Activity {
 		boolean serviceRunning = Boolean.FALSE;
 		switch(GameApplication.getGameType()){
 			case ChristMas: 
-				serviceRunning = GameApplication.isServiceRunning(this, AndroLotService.class);
+				serviceRunning = GameApplication.isServiceRunning(AndroLotService.class);
 				break;
 			case Kid: //TODO
 				break;

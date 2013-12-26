@@ -4,25 +4,25 @@ import java.util.Calendar;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 
 import com.androlot.applicatioin.GameApplication;
 import com.androlot.game.GameTime;
+import com.androlot.service.AbstractGameService;
 
-public class ServiceController<T extends Service> {
+public class ServiceController<T extends AbstractGameService> {
 	
-	private Class<T> serviceClass;
+	private T serviceClass;
 	
-	public ServiceController(Class<T> serviceClass) {
+	public ServiceController(T serviceClass) {
 		this.serviceClass = serviceClass;
 	}
 	
 	
 	public void startService(Context c){
-		Intent intentService = new Intent(c, serviceClass);
-		GameTime gameTime = new GameTime(c);
+		Intent intentService = new Intent(c, serviceClass.getClass());
+		GameTime gameTime = serviceClass.getGameTime();
 		if(gameTime.isNotTimeToStart()){
 			PendingIntent pintent = PendingIntent.getService(c, 0, intentService, 0);
 			AlarmManager alarm = (AlarmManager)c.getSystemService(Context.ALARM_SERVICE);
@@ -38,10 +38,10 @@ public class ServiceController<T extends Service> {
 
 	
 	public void stopService(Context c){
-		Intent intentService = new Intent(c, serviceClass);
+		Intent intentService = new Intent(c, serviceClass.getClass());
 		cancelAlarm(c, intentService);
 		
-		if(GameApplication.isServiceRunning(c, serviceClass)){
+		if(GameApplication.isServiceRunning(serviceClass.getClass())){
 			c.stopService(intentService);
 		}
 	}
