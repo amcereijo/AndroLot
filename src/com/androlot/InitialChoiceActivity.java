@@ -1,8 +1,12 @@
 package com.androlot;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import com.androlot.applicatioin.GameApplication;
+import com.androlot.enums.GameTypeEnum;
 
 /**
  * 
@@ -18,11 +22,17 @@ public class InitialChoiceActivity extends Activity {
 	}
 	
 	public void openChristmasGame(View view){
-		//prepare christmas game
+		startGame(GameTypeEnum.ChristMas);
 	}
 	
 	public void openKidGame(View view){
-		//prepare KID game
+		startGame(GameTypeEnum.Kid);
+	}
+	
+	private void startGame(GameTypeEnum gameType){
+		GameApplication.setGameType(gameType);
+		Intent newGame = new Intent(this, AndroLotActivity.class);
+		startActivity(newGame);
 	}
 	
 }

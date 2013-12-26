@@ -5,6 +5,8 @@
     
 
     <Button android:id="@+id/christmas_button"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="100dp"
@@ -13,6 +15,8 @@
         android:onClick="openChristmasGame"/>
     
     <Button android:id="@+id/kid_button"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:layout_marginRight="100dp"
