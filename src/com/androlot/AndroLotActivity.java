@@ -15,11 +15,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.androlot.applicatioin.GameApplication;
 import com.androlot.controller.ServiceController;
 import com.androlot.db.GameDbHelper;
 import com.androlot.dto.PeticionDto;
@@ -59,8 +59,8 @@ public class AndroLotActivity extends Activity {
 		checkServiceRunning();
 		
 		serviceController = new ServiceController();
-		setTitle(String.format(TITLE_FORMAT, getResources().getString(R.string.app_name), 
-				getResources().getString(R.string.main_text_titulo_string)));
+		
+		setGameTitle();
 		
 		gameDbHelper = new GameDbHelper(this);
 		if(getIntent().getExtras()!=null && Actions.MyNumbers.toString().equals(getIntent().getStringExtra("action"))){
@@ -70,6 +70,18 @@ public class AndroLotActivity extends Activity {
 	}
 
 	
+	private void setGameTitle() {
+		String gameTitle = "";
+		switch(GameApplication.getGameType()){
+			case ChristMas: gameTitle = getResources().getString(R.string.main_text_christmas_string);
+				break;
+			case Kid: gameTitle = getResources().getString(R.string.main_text_kid_string);
+				break;
+		}
+		setTitle(String.format(TITLE_FORMAT, getResources().getString(R.string.app_name),gameTitle));
+	}
+
+
 	private void checkServiceRunning(){
 		ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
 	    for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
@@ -87,12 +99,12 @@ public class AndroLotActivity extends Activity {
 	@Override
 	public void onBackPressed() {
 		if(principalShow){
-			finish();
+			//finish();
+			super.onBackPressed();
 		}else{
 			setContentView(R.layout.activity_androlot);
 			principalShow = true;
-			setTitle(String.format(TITLE_FORMAT, getResources().getString(R.string.app_name),
-					getResources().getString(R.string.main_text_titulo_string)));
+			setGameTitle();
 			checkServiceRunning();
 		}
 	}
