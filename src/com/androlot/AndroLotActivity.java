@@ -4,9 +4,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import android.app.Activity;
-import android.app.ActivityManager;
-import android.app.ActivityManager.RunningServiceInfo;
-import android.content.Context;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -44,7 +41,7 @@ public class AndroLotActivity extends Activity {
 	public enum Actions{
 		MyNumbers
 	}
-	private ServiceController serviceController;
+	private ServiceController<?> serviceController;
 	private boolean principalShow = true;
 	private List<TicketDto> tickets;
 	private final static String TITLE_FORMAT = "%s - %s";
@@ -56,13 +53,15 @@ public class AndroLotActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_androlot);
+		
 		checkServiceRunning();
 		
-		serviceController = new ServiceController();
+		createServiceController();
 		
 		setGameTitle();
 		
 		gameDbHelper = new GameDbHelper(this);
+		
 		if(getIntent().getExtras()!=null && Actions.MyNumbers.toString().equals(getIntent().getStringExtra("action"))){
 			initializeMyNumbers();
 			((Button)findViewById(R.id.check_prices_button)).requestFocus();
@@ -70,6 +69,17 @@ public class AndroLotActivity extends Activity {
 	}
 
 	
+	private void createServiceController() {
+		switch(GameApplication.getGameType()){
+			case ChristMas: 
+				serviceController = new ServiceController<AndroLotService>(AndroLotService.class);
+				break;
+			case Kid: //TODO
+				break;
+		}
+	}
+
+
 	private void setGameTitle() {
 		String gameTitle = "";
 		switch(GameApplication.getGameType()){
