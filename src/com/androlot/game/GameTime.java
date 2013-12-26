@@ -12,7 +12,7 @@ public class GameTime {
 	private AbstractGamePropertiesLoadar cP;
 	
 	public GameTime(Context c, AbstractGamePropertiesLoadar propertiesLoader){
-		cP = new ManagerPropertiesLoader<AbstractGamePropertiesLoadar>().loadProperties(c, propertiesLoader);
+		cP = new ManagerPropertiesLoader<AbstractGamePropertiesLoadar>().loadProperties(propertiesLoader);
 	}
 	
 	public Calendar getGameDate() {
