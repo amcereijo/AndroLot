@@ -10,6 +10,7 @@ import com.androlot.enums.GameTypeEnum;
 public class GameApplication extends Application {
 
 	private static GameTypeEnum gameType;
+	private static GameApplication gameApplication;
 	
 	public static GameTypeEnum getGameType() {
 		return gameType;
@@ -18,8 +19,7 @@ public class GameApplication extends Application {
 		GameApplication.gameType = gameType;
 	}
 	
-	
-	public static boolean isServiceRunning(Context context,  Class classType){
+	public static boolean isServiceRunning(Context context,  Class<?> classType){
 		ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
 	    for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
 	        if (classType.getName().equals(service.service.getClassName())) {
@@ -27,5 +27,12 @@ public class GameApplication extends Application {
 	        }
 	    }
 	    return false;
+	}
+	
+	public static GameApplication getInstance(){
+		if(gameApplication == null){
+			gameApplication = new GameApplication();
+		}
+		return gameApplication;
 	}
 }
