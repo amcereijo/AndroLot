@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+
+    <Button android:id="@+id/christmas_button"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="100dp"
+        android:text="Navidad"
+        android:background="@drawable/button_styles"
+        android:onClick="openChristmasGame"/>
+    
+    <Button android:id="@+id/kid_button"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="100dp"
+        android:text="Niño"
+        android:background="@drawable/button_styles"
+        android:onClick="openKidGame"/>
+    
+</RelativeLayout>
