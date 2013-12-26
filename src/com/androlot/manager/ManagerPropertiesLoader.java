@@ -5,15 +5,16 @@ import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.Properties;
 
-import android.content.Context;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
+
+import com.androlot.applicatioin.GameApplication;
 
 
 public class ManagerPropertiesLoader <T extends PropertiesLoader>{
 
-	public T loadProperties(Context c, T t){		
-		Resources resources = c.getResources();
+	public T loadProperties(T t){
+		Resources resources = GameApplication.getInstance().getResources();
 		AssetManager assetManager = resources.getAssets();
 
 		try {
