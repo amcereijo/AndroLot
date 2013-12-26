@@ -2,8 +2,6 @@ package com.androlot.game;
 
 import java.util.Calendar;
 
-import android.content.Context;
-
 import com.androlot.manager.AbstractGamePropertiesLoadar;
 import com.androlot.manager.ManagerPropertiesLoader;
 
@@ -11,7 +9,7 @@ public class GameTime {
 
 	private AbstractGamePropertiesLoadar cP;
 	
-	public GameTime(Context c, AbstractGamePropertiesLoadar propertiesLoader){
+	public GameTime(AbstractGamePropertiesLoadar propertiesLoader){
 		cP = new ManagerPropertiesLoader<AbstractGamePropertiesLoadar>().loadProperties(propertiesLoader);
 	}
 	

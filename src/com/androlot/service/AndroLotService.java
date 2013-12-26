@@ -21,11 +21,13 @@ import com.androlot.dto.RespuestaNumeroDto;
 import com.androlot.dto.SorteoDto;
 import com.androlot.dto.TicketDto;
 import com.androlot.exception.RespuestaErrorException;
+import com.androlot.game.GameTime;
 import com.androlot.http.AndrolotHttp;
+import com.androlot.manager.ChristmasProperties;
 import com.androlot.util.SharedPreferencesUtil;
 
 @SuppressLint("NewApi")
-public class AndroLotService extends Service {
+public class AndroLotService extends AbstractGameService {
 	
 	private volatile Thread t;
 	private final static int TIME_TO_WAIT = 60000;// 120000; //2 minutes 
@@ -136,5 +138,13 @@ public class AndroLotService extends Service {
 		
 		
 	}
+
+
+	@Override
+	public GameTime getGameTime() {
+		return new GameTime(new ChristmasProperties());
+	}
+
+	
 
 }
