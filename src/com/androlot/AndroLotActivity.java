@@ -83,12 +83,9 @@ public class AndroLotActivity extends Activity {
 
 
 	private void checkServiceRunning(){
-		ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-	    for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-	        if (AndroLotService.class.getName().equals(service.service.getClassName())) {
-	            ((ToggleButton)findViewById(R.id.service_button)).setChecked(Boolean.TRUE);
-	        }
-	    }
+		if(GameApplication.isServiceRunning(this, AndroLotService.class)){
+			((ToggleButton)findViewById(R.id.service_button)).setChecked(Boolean.TRUE);
+		}
 	}
 
 	protected void initializeMyNumbers() {
