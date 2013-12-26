@@ -93,7 +93,15 @@ public class AndroLotActivity extends Activity {
 
 
 	private void checkServiceRunning(){
-		if(GameApplication.isServiceRunning(this, AndroLotService.class)){
+		boolean serviceRunning = Boolean.FALSE;
+		switch(GameApplication.getGameType()){
+			case ChristMas: 
+				serviceRunning = GameApplication.isServiceRunning(this, AndroLotService.class);
+				break;
+			case Kid: //TODO
+				break;
+		}
+		if(serviceRunning){
 			((ToggleButton)findViewById(R.id.service_button)).setChecked(Boolean.TRUE);
 		}
 	}
