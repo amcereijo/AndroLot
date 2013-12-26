@@ -8,7 +8,7 @@ import java.util.Properties;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 
-import com.androlot.applicatioin.GameApplication;
+import com.androlot.application.GameApplication;
 
 
 public class ManagerPropertiesLoader <T extends PropertiesLoader>{

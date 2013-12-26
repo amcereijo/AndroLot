@@ -7,7 +7,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
-import com.androlot.applicatioin.GameApplication;
+import com.androlot.application.GameApplication;
 import com.androlot.game.GameTime;
 import com.androlot.service.AbstractGameService;
 

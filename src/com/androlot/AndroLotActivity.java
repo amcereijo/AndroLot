@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.androlot.applicatioin.GameApplication;
+import com.androlot.application.GameApplication;
 import com.androlot.controller.ServiceController;
 import com.androlot.db.GameDbHelper;
 import com.androlot.dto.PeticionDto;

@@ -1,4 +1,4 @@
-package com.androlot.applicatioin;
+package com.androlot.application;
 
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
@@ -20,7 +20,7 @@ public class GameApplication extends Application {
 	}
 	
 	public static boolean isServiceRunning(Class<?> classType){
-		ActivityManager manager = (ActivityManager) getInstance().getSystemService(Context.ACTIVITY_SERVICE);
+		ActivityManager manager = (ActivityManager) GameApplication.getInstance().getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
 	    for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
 	        if (classType.getName().equals(service.service.getClassName())) {
 	            return true;

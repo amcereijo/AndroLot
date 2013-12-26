@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.androlot.applicatioin.GameApplication;
+import com.androlot.application.GameApplication;
 import com.androlot.enums.GameTypeEnum;
 
 /**
