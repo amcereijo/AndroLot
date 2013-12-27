@@ -1,6 +1,6 @@
 package com.androlot.dto;
 
-public class ChristmasRessponseResumeDto extends RespuestaResumenDto {
+public class ChristmasResponseResumeDto extends RespuestaResumenDto {
 
 	private static final long serialVersionUID = -5208442253064128335L;
 

@@ -18,7 +18,7 @@ import android.widget.ToggleButton;
 import com.androlot.application.GameApplication;
 import com.androlot.controller.ServiceController;
 import com.androlot.db.GameDbHelper;
-import com.androlot.dto.ChristmasRessponseResumeDto;
+import com.androlot.dto.ChristmasResponseResumeDto;
 import com.androlot.dto.TicketDto;
 import com.androlot.enums.GameTypeEnum;
 import com.androlot.enums.NotificationActionsEnum;
@@ -281,7 +281,7 @@ public class AndroLotActivity extends BaseActivity {
 		@Override
 		public void run() {
 			try{
-				final ChristmasRessponseResumeDto respuesta = AndrolotFactory.getInstance(gameType).resumenPremios(ChristmasRessponseResumeDto.class);
+				final ChristmasResponseResumeDto respuesta = AndrolotFactory.getInstance(gameType).resumenPremios(ChristmasResponseResumeDto.class);
 				runOnUiThread(new Runnable() {
 					LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
 					@Override
@@ -294,7 +294,7 @@ public class AndroLotActivity extends BaseActivity {
 					}
 
 
-					private void crearListaNumeros( final ChristmasRessponseResumeDto respuesta) {
+					private void crearListaNumeros( final ChristmasResponseResumeDto respuesta) {
 						LinearLayout lista = (LinearLayout)findViewById(R.id.lista_premios_lista_numeros);
 						lista.addView(crearElementoLista(R.string.premio_gordo_string,respuesta.getNumero1()));
 						lista.addView(crearElementoLista(R.string.premio_2_string,respuesta.getNumero2()));
