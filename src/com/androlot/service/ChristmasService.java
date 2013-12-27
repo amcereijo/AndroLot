@@ -24,6 +24,7 @@ import com.androlot.enums.GameTypeEnum;
 import com.androlot.enums.NotificationActionsEnum;
 import com.androlot.exception.RespuestaErrorException;
 import com.androlot.game.GameTime;
+import com.androlot.http.AndrolotFactory;
 import com.androlot.http.AndrolotHttp;
 import com.androlot.manager.ChristmasProperties;
 import com.androlot.util.SharedPreferencesUtil;
@@ -69,7 +70,7 @@ public class ChristmasService extends AbstractGameService {
 		@Override
 		public void run() {
 			Thread thisThread = Thread.currentThread();
-			AndrolotHttp http = new AndrolotHttp();
+			AndrolotHttp http = AndrolotFactory.getInstance(GameTypeEnum.ChristMas);
 			while(t == thisThread){
 				Log.i("alServiceThread", "Execute...");
 				

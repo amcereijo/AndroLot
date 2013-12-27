@@ -9,7 +9,7 @@ import com.androlot.dto.PeticionDto;
 import com.androlot.dto.RespuestaNumeroDto;
 import com.androlot.dto.TicketDto;
 import com.androlot.exception.RespuestaErrorException;
-import com.androlot.http.AndrolotHttp;
+import com.androlot.http.AndrolotFactory;
 
 public class CheckNumberPrice implements Runnable {
 
@@ -26,7 +26,7 @@ public class CheckNumberPrice implements Runnable {
 		PeticionDto peticionDto = new PeticionDto();
 		peticionDto.setNumero(String.valueOf(ticket.getNumber()));
 		try {
-			final RespuestaNumeroDto respuestaNumero = new AndrolotHttp().premioNumero(peticionDto);
+			final RespuestaNumeroDto respuestaNumero = AndrolotFactory.getInstance(ticket.getGameType()).premioNumero(peticionDto);
 			
 			Context context = GameApplication.getContext();
 			String price = "";
