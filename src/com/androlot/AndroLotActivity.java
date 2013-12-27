@@ -33,10 +33,11 @@ import com.androlot.util.SharedPreferencesUtil;
  * @author angelcereijo
  *
  */
-public class AndroLotActivity extends Activity {
+public class AndroLotActivity extends BaseActivity {
 	
 	private static final String MY_NUMBER_TIME_CHECKED = "Última comprobación a las <b>%s</b>";
 
+	
 
 	public enum Actions{
 		MyNumbers
