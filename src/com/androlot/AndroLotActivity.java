@@ -27,6 +27,7 @@ import com.androlot.enums.NotificationActionsEnum;
 import com.androlot.exception.RespuestaErrorException;
 import com.androlot.http.AndrolotHttp;
 import com.androlot.service.ChristmasService;
+import com.androlot.service.KidService;
 import com.androlot.util.SharedPreferencesUtil;
 
 /**
@@ -80,9 +81,11 @@ public class AndroLotActivity extends BaseActivity {
 				gameTitle = getResources().getString(R.string.main_text_christmas_string);
 				classGameType = ChristmasService.class;
 				break;
-			case Kid: //TODO
+			case Kid:
+				serviceController = new ServiceController<KidService>(new KidService());
 				gameType = GameTypeEnum.Kid;
 				gameTitle = getResources().getString(R.string.main_text_kid_string);
+				classGameType = KidService.class;
 				break;
 		}
 	}
