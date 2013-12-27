@@ -1,7 +1,9 @@
 package com.androlot.http;
 
 import com.androlot.dto.RespuestaResumenDto;
+import com.androlot.dto.SorteoDto;
 import com.androlot.exception.RespuestaErrorException;
+import com.androlot.json.JsonUtil;
 
 public class KIdHttp extends AndrolotHttp {
 
@@ -15,8 +17,20 @@ public class KIdHttp extends AndrolotHttp {
 	@Override
 	public <T extends RespuestaResumenDto> T resumenPremios(Class<T> c)
 			throws RespuestaErrorException, Exception {
-		// TODO Auto-generated method stub
-		return null;
+		T response;
+		String peticion = "n="+SorteoDto.PETICION_NUMERO_RESUMEN;
+		//call
+		String jsonRespuesta = call(peticion);
+		jsonRespuesta = jsonRespuesta.replaceAll("premios=", "");
+		//fromJson to base
+		JsonUtil<T> jsonUtilResp = new JsonUtil<T>();
+		response = (T)jsonUtilResp.fromJsonToObject(jsonRespuesta, c);
+			//--error?
+		if(response.getError() == SorteoDto.RESPUESTA_ERROR){
+			//exception
+			throw new RespuestaErrorException();
+		}
+		return response;
 	}
 
 }

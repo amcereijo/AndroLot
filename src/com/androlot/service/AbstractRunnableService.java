@@ -69,6 +69,7 @@ public abstract class AbstractRunnableService implements  Runnable {
 					if(!"0".equals(respuestaNumero.getPremio()) && respuestaNumero.getPremio()!=null){
 						processPrice(ticket, respuestaNumero);
 					}
+					
 					Log.i("", "execution service");
 					
 					if(SorteoDto.STATUS_SORTEO_TERMINADO_NO_OFICIAL == respuestaNumero.getStatus()){
@@ -99,6 +100,7 @@ public abstract class AbstractRunnableService implements  Runnable {
 			ticket.setPrice(ticket.getAmmount()*premio);
 			
 			new GameDbHelper(c).updateTicket(ticket);
+			
 			//create notification
 			showNotification(c.getString(R.string.notification_game_price_title), R.drawable.ic_launcher, 
 					c.getString(R.string.notification_game_price_text, ticket.getNumber(), ticket.getPrice()));

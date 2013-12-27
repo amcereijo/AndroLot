@@ -5,7 +5,6 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -18,12 +17,15 @@ import android.widget.ToggleButton;
 import com.androlot.application.GameApplication;
 import com.androlot.controller.ServiceController;
 import com.androlot.db.GameDbHelper;
-import com.androlot.dto.ChristmasResponseResumeDto;
 import com.androlot.dto.TicketDto;
 import com.androlot.enums.GameTypeEnum;
 import com.androlot.enums.NotificationActionsEnum;
 import com.androlot.http.AndrolotFactory;
+import com.androlot.http.AndrolotHttp;
+import com.androlot.runnable.CheckAllPrice;
 import com.androlot.runnable.CheckNumberPrice;
+import com.androlot.runnable.UpdateAllPrice;
+import com.androlot.runnable.UpdateAllPriceFactory;
 import com.androlot.runnable.UpdateButton;
 import com.androlot.runnable.UpdateMyNumbersView;
 import com.androlot.service.ChristmasService;
@@ -273,64 +275,12 @@ public class AndroLotActivity extends BaseActivity {
 		setTitle(String.format(TITLE_FORMAT, getResources().getString(R.string.app_name),
 				getResources().getString(R.string.main_btn_resumen_string)));
 		
-		new Thread(new CheckAllPrice()).start();
+		AndrolotHttp androlotHttp = AndrolotFactory.getInstance(gameType);
+		UpdateAllPrice updateAllPrice = UpdateAllPriceFactory.getInstance(this, gameType);
+		
+		new Thread(new CheckAllPrice(androlotHttp, updateAllPrice)).start();
 	}
 
-	
-	private class CheckAllPrice implements Runnable {
-		@Override
-		public void run() {
-			try{
-				final ChristmasResponseResumeDto respuesta = AndrolotFactory.getInstance(gameType).resumenPremios(ChristmasResponseResumeDto.class);
-				runOnUiThread(new Runnable() {
-					LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
-					@Override
-					public void run() {
-						TextView titulo = (TextView) findViewById(R.id.lista_premios_lista_titulo);
-						titulo.setVisibility(View.GONE);
-						
-						
-						crearListaNumeros(respuesta);
-					}
-
-
-					private void crearListaNumeros( final ChristmasResponseResumeDto respuesta) {
-						LinearLayout lista = (LinearLayout)findViewById(R.id.lista_premios_lista_numeros);
-						lista.addView(crearElementoLista(R.string.premio_gordo_string,respuesta.getNumero1()));
-						lista.addView(crearElementoLista(R.string.premio_2_string,respuesta.getNumero2()));
-						lista.addView(crearElementoLista(R.string.premio_3_string,respuesta.getNumero3()));
-						lista.addView(crearElementoLista(R.string.premio_4_string,respuesta.getNumero4()));
-						lista.addView(crearElementoLista(R.string.premio_4_1_string,respuesta.getNumero5()));
-						lista.addView(crearElementoLista(R.string.premio_5_string,respuesta.getNumero6()));
-						lista.addView(crearElementoLista(R.string.premio_5_1_string,respuesta.getNumero7()));
-						lista.addView(crearElementoLista(R.string.premio_5_2_string,respuesta.getNumero8()));
-						lista.addView(crearElementoLista(R.string.premio_5_3_string,respuesta.getNumero9()));
-						lista.addView(crearElementoLista(R.string.premio_5_4_string,respuesta.getNumero10()));
-						lista.addView(crearElementoLista(R.string.premio_5_5_string,respuesta.getNumero11()));
-						lista.addView(crearElementoLista(R.string.premio_5_6_string,respuesta.getNumero12()));
-						lista.addView(crearElementoLista(R.string.premio_5_7_string,respuesta.getNumero13()));
-					}	
-					
-					
-					private LinearLayout crearElementoLista(int premio, String numero){
-						LinearLayout elementoLista = (LinearLayout) inflater.inflate(R.layout.lista_elemento_numero, null);
-						TextView textoNumero = (TextView)elementoLista.findViewById(R.id.lista_numero);
-						TextView textoPremio = (TextView)elementoLista.findViewById(R.id.lista_premio);
-						if("-1".equals(numero)){
-							textoNumero.setText("-");
-						}else{
-							textoNumero.setText(numero);	
-						}
-						textoPremio.setText(premio);
-						return elementoLista;
-					}
-					
-				});
-			}catch(Exception e){
-				Log.e("", e.getMessage(),e);
-			}
-		}
-	}
 	
 	/**
 	 * 
