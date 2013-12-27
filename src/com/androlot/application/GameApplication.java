@@ -3,7 +3,6 @@ package com.androlot.application;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
 import android.app.Application;
-import android.content.ContentResolver;
 import android.content.Context;
 
 import com.androlot.enums.GameTypeEnum;

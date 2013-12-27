@@ -20,6 +20,7 @@ import com.androlot.dto.PeticionDto;
 import com.androlot.dto.RespuestaNumeroDto;
 import com.androlot.dto.SorteoDto;
 import com.androlot.dto.TicketDto;
+import com.androlot.enums.NotificationActionsEnum;
 import com.androlot.exception.RespuestaErrorException;
 import com.androlot.game.GameTime;
 import com.androlot.http.AndrolotHttp;
@@ -121,7 +122,7 @@ public class AndroLotService extends AbstractGameService {
 			    .setContentText(message)
 			    .setAutoCancel(Boolean.TRUE);
 			Intent resultIntent = new Intent(c, AndroLotActivity.class);
-			resultIntent.putExtra("action", AndroLotActivity.Actions.MyNumbers.toString());
+			resultIntent.putExtra("action", NotificationActionsEnum.MyNumbers_Christmas.toString());
 			
 			TaskStackBuilder stackBuilder = TaskStackBuilder.create(c);
 			stackBuilder.addParentStack(AndroLotActivity.class);

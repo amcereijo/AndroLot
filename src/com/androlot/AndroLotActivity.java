@@ -3,7 +3,6 @@ package com.androlot;
 import java.util.Iterator;
 import java.util.List;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -23,6 +22,7 @@ import com.androlot.dto.PeticionDto;
 import com.androlot.dto.RespuestaNumeroDto;
 import com.androlot.dto.RespuestaResumenDto;
 import com.androlot.dto.TicketDto;
+import com.androlot.enums.NotificationActionsEnum;
 import com.androlot.exception.RespuestaErrorException;
 import com.androlot.http.AndrolotHttp;
 import com.androlot.service.AndroLotService;
@@ -37,11 +37,6 @@ public class AndroLotActivity extends BaseActivity {
 	
 	private static final String MY_NUMBER_TIME_CHECKED = "Última comprobación a las <b>%s</b>";
 
-	
-
-	public enum Actions{
-		MyNumbers
-	}
 	private ServiceController<?> serviceController;
 	private boolean principalShow = true;
 	private List<TicketDto> tickets;
@@ -63,7 +58,7 @@ public class AndroLotActivity extends BaseActivity {
 		
 		gameDbHelper = new GameDbHelper(this);
 		
-		if(getIntent().getExtras()!=null && Actions.MyNumbers.toString().equals(getIntent().getStringExtra("action"))){
+		if(getIntent().getExtras()!=null && NotificationActionsEnum.MyNumbers_Christmas.toString().equals(getIntent().getStringExtra("action"))){
 			initializeMyNumbers();
 			((Button)findViewById(R.id.check_prices_button)).requestFocus();
 		}
