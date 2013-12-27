@@ -26,6 +26,9 @@ import com.androlot.enums.GameTypeEnum;
 import com.androlot.enums.NotificationActionsEnum;
 import com.androlot.exception.RespuestaErrorException;
 import com.androlot.http.AndrolotHttp;
+import com.androlot.runnable.CheckNumberPrice;
+import com.androlot.runnable.UpdateButton;
+import com.androlot.runnable.UpdateMyNumbersView;
 import com.androlot.service.ChristmasService;
 import com.androlot.service.KidService;
 import com.androlot.util.SharedPreferencesUtil;
@@ -239,9 +242,13 @@ public class AndroLotActivity extends BaseActivity {
 			checkButton.setText(R.string.checking_prices_string);
 			
 			UpdateButton updateButtom = null;
-			if(pos == tickets.size()-1) { updateButtom = new UpdateButton(checkButton, R.string.check_prices_string); }
+			if(pos == tickets.size()-1) { 
+				updateButtom = new UpdateButton(checkButton, R.string.check_prices_string); 
+			}
 			
-			new Thread(new CheckNumberPrice(ticket, numberElement, updateButtom) ).start();
+			TextView priceText = (TextView)numberElement.findViewById(R.id.check_number_element_result);
+			UpdateMyNumbersView updateMyNumbersView = new UpdateMyNumbersView(this, priceText, updateButtom);
+			new Thread(new CheckNumberPrice(ticket,updateMyNumbersView) ).start();
 			
 			String moment =  SharedPreferencesUtil.saveLastCheck(this);
 			showLastCheck(moment);
@@ -249,7 +256,6 @@ public class AndroLotActivity extends BaseActivity {
 	}
 
 	
-
 	protected void showLastCheck(String moment) {
 		if(moment != null && !"".equals(moment)){
 			TextView lastUpdateText = (TextView)findViewById(R.id.lastCheclView);
@@ -258,57 +264,6 @@ public class AndroLotActivity extends BaseActivity {
 		}
 	}
 
-
-	private class CheckNumberPrice implements Runnable{
-		final TicketDto ticket;
-		final View numberElement;
-		final UpdateButton updateButtom;
-		
-		public CheckNumberPrice(TicketDto ticket, View layout, UpdateButton updateButtom) {
-			this.ticket = ticket;
-			this.numberElement = layout;
-			this.updateButtom = updateButtom;
-		}
-		
-		@Override
-		public void run() {
-			PeticionDto peticionDto = new PeticionDto();
-			peticionDto.setNumero(String.valueOf(ticket.getNumber()));
-			try {
-				final RespuestaNumeroDto respuestaNumero = new AndrolotHttp().premioNumero(peticionDto);
-				runOnUiThread(new Runnable() {
-					@Override
-					public void run() {
-						TextView priceText = (TextView)numberElement.findViewById(R.id.check_number_element_result);
-						String price = "";
-						if(!"0".equals(respuestaNumero.getPremio()) && respuestaNumero.getPremio()!=null){
-							int premio = (Integer.parseInt(respuestaNumero.getPremio()))/20;
-							float  won = premio*ticket.getAmmount();
-							
-							price = String.format(getString(R.string.my_number_win), String.format("%.2f", won));
-							price += getString(R.string.donnate);
-							ticket.setPrice(ticket.getAmmount()*premio);
-						}else{
-							price = getString(R.string.my_number_no_price);
-							ticket.setPrice(0);
-						}
-						
-						priceText.setText(Html.fromHtml(price));
-						
-						gameDbHelper.updateTicket(ticket);
-						
-						if(updateButtom!=null){
-							updateButtom.changeMessage();
-						}
-					}
-				});
-			} catch (RespuestaErrorException e) {
-				e.printStackTrace();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	}
 	
 	/**
 	 * 
@@ -404,15 +359,4 @@ public class AndroLotActivity extends BaseActivity {
 		principalShow = false;
 	}
 	
-	class UpdateButton {
-		private Button button;
-		private int message;
-		public UpdateButton(Button button, int message){
-			this.button = button;
-			this.message = message;
-		}
-		public void changeMessage(){
-			this.button.setText(message);
-		}
-	}
 }
