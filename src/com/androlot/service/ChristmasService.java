@@ -29,7 +29,7 @@ import com.androlot.manager.ChristmasProperties;
 import com.androlot.util.SharedPreferencesUtil;
 
 @SuppressLint("NewApi")
-public class AndroLotService extends AbstractGameService {
+public class ChristmasService extends AbstractGameService {
 	
 	private volatile Thread t;
 	private final static int TIME_TO_WAIT = 60000;// 120000; //2 minutes 
