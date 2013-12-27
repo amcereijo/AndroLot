@@ -2,10 +2,10 @@ package com.androlot.manager;
 
 public abstract class AbstractGamePropertiesLoadar implements PropertiesLoader {
 
-	private String day;
-	private String month;
-	private String hour;
-	private String min;
+	protected String day;
+	protected String month;
+	protected String hour;
+	protected String min;
 	
 	public String getDay() {
 		return day;
