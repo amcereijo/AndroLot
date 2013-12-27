@@ -4,7 +4,9 @@ import java.util.List;
 
 import android.app.Service;
 
+import com.androlot.db.GameDbHelper;
 import com.androlot.dto.TicketDto;
+import com.androlot.enums.GameTypeEnum;
 
 public class KIdRunnableService extends AbstractRunnableService {
 
@@ -17,8 +19,9 @@ public class KIdRunnableService extends AbstractRunnableService {
 	
 	@Override
 	protected List<TicketDto> findTickets() {
-		// TODO Auto-generated method stub
-		return null;
+		final GameDbHelper gDbHelper = new GameDbHelper(c);
+		List<TicketDto> tickets = gDbHelper.getTickets(GameTypeEnum.Kid);
+		return tickets;
 	}
 	
 	@Override

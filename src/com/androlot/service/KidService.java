@@ -1,8 +1,6 @@
 package com.androlot.service;
 
 import android.app.Service;
-import android.content.Intent;
-import android.os.IBinder;
 
 import com.androlot.game.GameTime;
 import com.androlot.manager.KidProperties;
@@ -15,15 +13,8 @@ public class KidService extends AbstractGameService{
 	}
 
 	@Override
-	public IBinder onBind(Intent intent) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public AbstractRunnableService getRunnableService(Service s) {
-		// TODO Auto-generated method stub
-		return null;
+		return new KIdRunnableService(s);
 	}
 
 }
