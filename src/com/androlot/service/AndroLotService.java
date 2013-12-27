@@ -20,6 +20,7 @@ import com.androlot.dto.PeticionDto;
 import com.androlot.dto.RespuestaNumeroDto;
 import com.androlot.dto.SorteoDto;
 import com.androlot.dto.TicketDto;
+import com.androlot.enums.GameTypeEnum;
 import com.androlot.enums.NotificationActionsEnum;
 import com.androlot.exception.RespuestaErrorException;
 import com.androlot.game.GameTime;
@@ -75,7 +76,7 @@ public class AndroLotService extends AbstractGameService {
 				SharedPreferencesUtil.saveLastCheck(c);
 				
 				final GameDbHelper gDbHelper = new GameDbHelper(c);
-				List<TicketDto> tickets = gDbHelper.getTickets();
+				List<TicketDto> tickets = gDbHelper.getTickets(GameTypeEnum.ChristMas);
 				
 				for(TicketDto ticket : tickets){
 					PeticionDto peticionDto = new PeticionDto();

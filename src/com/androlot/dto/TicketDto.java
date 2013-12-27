@@ -2,6 +2,8 @@ package com.androlot.dto;
 
 import java.io.Serializable;
 
+import com.androlot.enums.GameTypeEnum;
+
 public class TicketDto implements Serializable {
 
 	private static final long serialVersionUID = 1403034203392709014L;
@@ -9,6 +11,7 @@ public class TicketDto implements Serializable {
 	private int number;
 	private float ammount;
 	private float price = -1;
+	private GameTypeEnum gameType;
 	
 	public int getNumber() {
 		return number;
@@ -27,6 +30,13 @@ public class TicketDto implements Serializable {
 	}
 	public void setPrice(float price) {
 		this.price = price;
+	}
+	
+	public GameTypeEnum getGameType() {
+		return gameType;
+	}
+	public void setGameType(GameTypeEnum gameType) {
+		this.gameType = gameType;
 	}
 	
 	public String getNumberComplete(){

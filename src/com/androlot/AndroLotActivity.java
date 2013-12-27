@@ -22,6 +22,7 @@ import com.androlot.dto.PeticionDto;
 import com.androlot.dto.RespuestaNumeroDto;
 import com.androlot.dto.RespuestaResumenDto;
 import com.androlot.dto.TicketDto;
+import com.androlot.enums.GameTypeEnum;
 import com.androlot.enums.NotificationActionsEnum;
 import com.androlot.exception.RespuestaErrorException;
 import com.androlot.http.AndrolotHttp;
@@ -37,7 +38,11 @@ public class AndroLotActivity extends BaseActivity {
 	
 	private static final String MY_NUMBER_TIME_CHECKED = "Última comprobación a las <b>%s</b>";
 
+	private GameTypeEnum gameType;
 	private ServiceController<?> serviceController;
+	private String gameTitle;
+	private Class<?> classGameType;
+	
 	private boolean principalShow = true;
 	private List<TicketDto> tickets;
 	private final static String TITLE_FORMAT = "%s - %s";
@@ -50,54 +55,46 @@ public class AndroLotActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_androlot);
 		
+		prepareGameConfiguration();
 		checkServiceRunning();
-		
-		createServiceController();
-		
 		setGameTitle();
 		
 		gameDbHelper = new GameDbHelper(this);
 		
-		if(getIntent().getExtras()!=null && NotificationActionsEnum.MyNumbers_Christmas.toString().equals(getIntent().getStringExtra("action"))){
+		doInitAction();
+	}
+
+	private void doInitAction() {
+		if(getIntent().getExtras()!=null && 
+				NotificationActionsEnum.MyNumbers_Christmas.toString().equals(getIntent().getStringExtra("action"))){
 			initializeMyNumbers();
 			((Button)findViewById(R.id.check_prices_button)).requestFocus();
 		}
 	}
 
-	
-	private void createServiceController() {
+	private void prepareGameConfiguration(){
 		switch(GameApplication.getGameType()){
 			case ChristMas: 
 				serviceController = new ServiceController<AndroLotService>(new AndroLotService());
+				gameType = GameTypeEnum.ChristMas;
+				gameTitle = getResources().getString(R.string.main_text_christmas_string);
+				classGameType = AndroLotService.class;
 				break;
 			case Kid: //TODO
+				gameType = GameTypeEnum.Kid;
+				gameTitle = getResources().getString(R.string.main_text_kid_string);
 				break;
 		}
 	}
 
 
 	private void setGameTitle() {
-		String gameTitle = "";
-		switch(GameApplication.getGameType()){
-			case ChristMas: gameTitle = getResources().getString(R.string.main_text_christmas_string);
-				break;
-			case Kid: gameTitle = getResources().getString(R.string.main_text_kid_string);
-				break;
-		}
 		setTitle(String.format(TITLE_FORMAT, getResources().getString(R.string.app_name),gameTitle));
 	}
 
 
 	private void checkServiceRunning(){
-		boolean serviceRunning = Boolean.FALSE;
-		switch(GameApplication.getGameType()){
-			case ChristMas: 
-				serviceRunning = GameApplication.isServiceRunning(AndroLotService.class);
-				break;
-			case Kid: //TODO
-				break;
-		}
-		if(serviceRunning){
+		if(GameApplication.isServiceRunning(classGameType)){
 			((ToggleButton)findViewById(R.id.service_button)).setChecked(Boolean.TRUE);
 		}
 	}
@@ -137,7 +134,7 @@ public class AndroLotActivity extends BaseActivity {
 	
 	
 	private void loadSavedNumbers() {
-		tickets = gameDbHelper.getTickets();
+		tickets = gameDbHelper.getTickets(gameType);
 		for(TicketDto ticket : tickets){
 			aniadirNumeroALista(ticket);
 		}
@@ -150,22 +147,26 @@ public class AndroLotActivity extends BaseActivity {
 	public void aniadirNumero(View v){
 		EditText numero = (EditText)findViewById(R.id.aniadir_numero_numero);
 		EditText cantidad = (EditText)findViewById(R.id.aniadir_numero_cantidad);
+		
 		String numberText = numero.getText().toString();
 		String ammountText = cantidad.getText().toString();
+		
 		if(numberText==null || "".equals(numberText) || numberText.length()>5 || 
 			ammountText==null || "".equals(ammountText) ){
 			Toast.makeText(getApplicationContext(), R.string.error_aniadir_numero_string, Toast.LENGTH_LONG).show();
 		}else{
 			TicketDto ticket = new TicketDto();
-			ticket.setNumber(Integer.parseInt(numero.getText().toString()));
-			ticket.setAmmount(Float.parseFloat(cantidad.getText().toString()));
+				ticket.setNumber(Integer.parseInt(numero.getText().toString()));
+				ticket.setAmmount(Float.parseFloat(cantidad.getText().toString()));
+				ticket.setGameType(gameType);
+			
+			gameDbHelper.addNumber(ticket);
+			
+			aniadirNumeroALista(ticket);
+			tickets.add(ticket);
 			
 			numero.setText("");
 			cantidad.setText("");
-			aniadirNumeroALista(ticket);
-			
-			gameDbHelper.addNumber(ticket);
-			tickets.add(ticket);
 		}
 	}
 
@@ -177,7 +178,7 @@ public class AndroLotActivity extends BaseActivity {
 		LinearLayout numberLayout = (LinearLayout) v.getParent();
 		
 		TextView numero = (TextView) numberLayout.findViewById(R.id.check_number_element_number);
-		gameDbHelper.removeTicket(numero.getText().toString());
+		gameDbHelper.removeTicket(numero.getText().toString(), gameType);
 		deleteTicketFromList(numero.getText().toString());
 		
 		((LinearLayout) numberLayout.getParent()).removeView(numberLayout);
@@ -199,7 +200,6 @@ public class AndroLotActivity extends BaseActivity {
 	private void aniadirNumeroALista(TicketDto ticket) {
 		LinearLayout aniadirNumeroLista = (LinearLayout)findViewById(R.id.aniadir_numero_lista);
 		
-		
 		LinearLayout layoutElementoNumero =(LinearLayout)LayoutInflater.from(this).inflate(R.layout.consulta_numero_elemento, aniadirNumeroLista, false);
 		
 		TextView numberTextText = (TextView)layoutElementoNumero.findViewById(R.id.check_number_element_text);
@@ -210,7 +210,6 @@ public class AndroLotActivity extends BaseActivity {
 		numberText.setText(ticket.getNumberComplete());
 		String price = "";
 		if(ticket.getPrice()>0){
-			
 			price = String.format(getString(R.string.my_number_win), String.format("%.2f", ticket.getPrice()));
 			price += getString(R.string.donnate);
 		}else if(ticket.getPrice()!=-1){
