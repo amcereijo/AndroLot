@@ -2,11 +2,9 @@ package com.androlot.service;
 
 import java.util.List;
 
-import android.annotation.SuppressLint;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
@@ -26,7 +24,7 @@ import com.androlot.http.AndrolotFactory;
 import com.androlot.http.AndrolotHttp;
 import com.androlot.util.SharedPreferencesUtil;
 
-@SuppressLint("NewApi")
+
 public abstract class AbstractRunnableService implements  Runnable {
 	
 	protected Thread t;
@@ -116,26 +114,25 @@ public abstract class AbstractRunnableService implements  Runnable {
 
 	
 	protected void showNotification(String title, int icon, String message) {
-		NotificationCompat.Builder mBuilder =
-		    new NotificationCompat.Builder(c)
-		    .setSmallIcon(icon)
-		    .setContentTitle(title)
-		    .setContentText(message)
-		    .setAutoCancel(Boolean.TRUE);
+		
 		Intent resultIntent = new Intent(c, AndroLotActivity.class);
 		resultIntent.putExtra("action", NotificationActionsEnum.MyNumbers_Christmas.toString());
 		
-		TaskStackBuilder stackBuilder = TaskStackBuilder.create(c);
-		stackBuilder.addParentStack(AndroLotActivity.class);
-		// Adds the Intent that starts the Activity to the top of the stack
-		stackBuilder.addNextIntent(resultIntent);
-		PendingIntent resultPendingIntent =
-		    stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-		mBuilder.setContentIntent(resultPendingIntent);
-		NotificationManager mNotificationManager =
-		    (NotificationManager) c.getSystemService(Context.NOTIFICATION_SERVICE);
-		// mId allows you to update the notification later on.
-		mNotificationManager.notify(getServiceId(), mBuilder.build());
+		NotificationCompat.Builder builder =  
+	            new NotificationCompat.Builder(c)  
+	            .setSmallIcon(icon)  
+	            .setContentTitle(title)  
+	            .setContentText(message)
+	            .setAutoCancel(Boolean.TRUE);  
+  
+	    PendingIntent contentIntent = PendingIntent.getActivity(c, 0, resultIntent,   
+	            PendingIntent.FLAG_UPDATE_CURRENT);  
+	    builder.setContentIntent(contentIntent);  
+
+	    
+	    NotificationManager manager = (NotificationManager) c.getSystemService(Context.NOTIFICATION_SERVICE);  
+	    manager.notify(0, builder.build());
+		
 	}
 	
 	protected abstract List<TicketDto> findTickets();
