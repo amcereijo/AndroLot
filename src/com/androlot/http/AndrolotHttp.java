@@ -62,7 +62,7 @@ public abstract class AndrolotHttp {
 	 * @throws RespuestaErrorException
 	 * @throws Exception
 	 */
-	public abstract <T extends RespuestaResumenDto> T resumenPremios(Class<T> c) throws
+	public abstract RespuestaResumenDto resumenPremios() throws
 		RespuestaErrorException, Exception; 
 	
 

@@ -1,5 +1,6 @@
 package com.androlot.http;
 
+import com.androlot.dto.ChristmasResponseResumeDto;
 import com.androlot.dto.RespuestaResumenDto;
 import com.androlot.dto.SorteoDto;
 import com.androlot.exception.RespuestaErrorException;
@@ -16,16 +17,15 @@ public class ChristmasHttp extends AndrolotHttp {
 
 
 	@Override
-	public <T extends RespuestaResumenDto> T resumenPremios(Class<T> c)
-			throws RespuestaErrorException, Exception {
-		T response;
+	public RespuestaResumenDto resumenPremios() throws RespuestaErrorException, Exception {
+		ChristmasResponseResumeDto response;
 		String peticion = "n="+SorteoDto.PETICION_NUMERO_RESUMEN;
 		//call
 		String jsonRespuesta = call(peticion);
 		jsonRespuesta = jsonRespuesta.replaceAll("premios=", "");
 		//fromJson to base
-		JsonUtil<T> jsonUtilResp = new JsonUtil<T>();
-		response = (T)jsonUtilResp.fromJsonToObject(jsonRespuesta, c);
+		JsonUtil<ChristmasResponseResumeDto> jsonUtilResp = new JsonUtil<ChristmasResponseResumeDto>();
+		response = (ChristmasResponseResumeDto)jsonUtilResp.fromJsonToObject(jsonRespuesta, ChristmasResponseResumeDto.class);
 			//--error?
 		if(response.getError() == SorteoDto.RESPUESTA_ERROR){
 			//exception
