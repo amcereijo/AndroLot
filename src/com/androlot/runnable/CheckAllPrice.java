@@ -1,6 +1,6 @@
 package com.androlot.runnable;
 
-import com.androlot.dto.ChristmasResponseResumeDto;
+import com.androlot.dto.RespuestaResumenDto;
 import com.androlot.exception.RespuestaErrorException;
 import com.androlot.http.AndrolotHttp;
 
@@ -17,7 +17,7 @@ public class CheckAllPrice implements Runnable{
 	@Override
 	public void run() {
 		try {
-			final ChristmasResponseResumeDto response = androlotHttp.resumenPremios(ChristmasResponseResumeDto.class);
+			final RespuestaResumenDto response = androlotHttp.resumenPremios();
 			updateAllPrice.updateView(response);
 		} catch (RespuestaErrorException e) {
 			e.printStackTrace();
