@@ -57,4 +57,11 @@
     <string name="notification_game_price_title">Aviso de Premio</string>
     <string name="notification_game_price_text" formatted="false">Tu numero %s ha sido premiado con %s€</string>
     
+    <string name="kid_principal_prizes_title">Premios principales</string>
+    <string name="kid_3_prizes_title">Terceros premios</string>
+    <string name="kid_special_prizes_title">Extracciones especiales</string>
+    <string name="kid_r_prizes_title">Reintegros</string>
+    <string name="kid_1_price">1º premio</string>
+    <string name="kid_2_price">2º premio</string>
+    
 </resources>
