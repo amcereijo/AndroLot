@@ -7,21 +7,19 @@
     <Button android:id="@+id/christmas_button"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="100dp"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="100dp"
-        android:text="Navidad"
-        android:background="@drawable/button_styles"
+        android:layout_marginLeft="75dp"
+        android:background="@drawable/christmas_button"
         android:onClick="openChristmasGame"/>
     
     <Button android:id="@+id/kid_button"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="100dp"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="100dp"
-        android:text="Niño"
-        android:background="@drawable/button_styles"
+        android:layout_marginRight="75dp"
+        android:background="@drawable/kid_button"
         android:onClick="openKidGame"/>
     
 </RelativeLayout>
