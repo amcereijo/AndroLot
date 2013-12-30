@@ -32,32 +32,60 @@ public class UpdateAllChristmasPrice extends UpdateAllPrice{
 
 			private void crearListaNumeros( final ChristmasResponseResumeDto respuesta) {
 				LinearLayout lista = (LinearLayout) activity.findViewById(R.id.lista_premios_lista_numeros);
-				lista.addView(crearElementoLista(R.string.premio_gordo_string,respuesta.getNumero1()));
-				lista.addView(crearElementoLista(R.string.premio_2_string,respuesta.getNumero2()));
-				lista.addView(crearElementoLista(R.string.premio_3_string,respuesta.getNumero3()));
-				lista.addView(crearElementoLista(R.string.premio_4_string,respuesta.getNumero4()));
-				lista.addView(crearElementoLista(R.string.premio_4_1_string,respuesta.getNumero5()));
-				lista.addView(crearElementoLista(R.string.premio_5_string,respuesta.getNumero6()));
-				lista.addView(crearElementoLista(R.string.premio_5_1_string,respuesta.getNumero7()));
-				lista.addView(crearElementoLista(R.string.premio_5_2_string,respuesta.getNumero8()));
-				lista.addView(crearElementoLista(R.string.premio_5_3_string,respuesta.getNumero9()));
-				lista.addView(crearElementoLista(R.string.premio_5_4_string,respuesta.getNumero10()));
-				lista.addView(crearElementoLista(R.string.premio_5_5_string,respuesta.getNumero11()));
-				lista.addView(crearElementoLista(R.string.premio_5_6_string,respuesta.getNumero12()));
-				lista.addView(crearElementoLista(R.string.premio_5_7_string,respuesta.getNumero13()));
+				
+				lista.addView(createTitleElement(R.string.premio_gordo_string));
+				lista.addView(createTitleElement(R.string.premio_gordo_string_2));
+				lista.addView(createListElement(R.string.premio_gordo_string_amount,respuesta.getNumero1()));
+				
+				lista.addView(createTitleElement(R.string.premio_2_string));
+				lista.addView(createTitleElement(R.string.premio_2_string_2));
+				lista.addView(createListElement(R.string.premio_2_string_amount,respuesta.getNumero2()));
+				
+				
+				lista.addView(createTitleElement(R.string.premio_3_string));
+				lista.addView(createTitleElement(R.string.premio_3_string_2));
+				lista.addView(createListElement(R.string.premio_3_string_amount,respuesta.getNumero3()));
+		
+				
+				lista.addView(createTitleElement(R.string.premio_4_string));
+				lista.addView(createTitleElement(R.string.premio_4_string_2));
+				lista.addView(createListElement(R.string.premio_4_string_amount,respuesta.getNumero4()));
+				lista.addView(createListElement(R.string.premio_4_string_amount,respuesta.getNumero5()));
+				
+				
+				lista.addView(createTitleElement(R.string.premio_5_string));
+				lista.addView(createTitleElement(R.string.premio_5_string_2));
+				lista.addView(createListElement(R.string.premio_5_string_amount,respuesta.getNumero6()));
+				lista.addView(createListElement(R.string.premio_5_string_amount,respuesta.getNumero7()));
+				lista.addView(createListElement(R.string.premio_5_string_amount,respuesta.getNumero8()));
+				lista.addView(createListElement(R.string.premio_5_string_amount,respuesta.getNumero9()));
+				lista.addView(createListElement(R.string.premio_5_string_amount,respuesta.getNumero10()));
+				lista.addView(createListElement(R.string.premio_5_string_amount,respuesta.getNumero11()));
+				lista.addView(createListElement(R.string.premio_5_string_amount,respuesta.getNumero12()));
+				lista.addView(createListElement(R.string.premio_5_string_amount,respuesta.getNumero13()));
+				
 			}	
 			
 			
-			private LinearLayout crearElementoLista(int premio, String numero){
+			private LinearLayout createTitleElement(int titleText){
+				LinearLayout titleElement = (LinearLayout) inflater.inflate(R.layout.list_number_title, null);
+				TextView titleView = (TextView)titleElement.findViewById(R.id.title);
+				titleView.setText(titleText);
+				return titleElement;
+			}
+			
+			private LinearLayout createListElement(int premio, String numero){
 				LinearLayout elementoLista = (LinearLayout) inflater.inflate(R.layout.lista_elemento_numero, null);
 				TextView textoNumero = (TextView)elementoLista.findViewById(R.id.lista_numero);
 				TextView textoPremio = (TextView)elementoLista.findViewById(R.id.lista_premio);
-				if("-1".equals(numero)){
+				if(null== numero || "".equals(numero) || "-1".equals(numero)){
 					textoNumero.setText("-");
 				}else{
 					textoNumero.setText(numero);	
 				}
-				textoPremio.setText(premio);
+				if(premio != -1){
+					textoPremio.setText(premio);
+				}
 				return elementoLista;
 			}
 			

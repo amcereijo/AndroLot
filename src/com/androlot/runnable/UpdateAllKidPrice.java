@@ -32,26 +32,35 @@ public class UpdateAllKidPrice extends UpdateAllPrice {
 				final KidResponseResumeDto kidResponse = (KidResponseResumeDto)response;
 				LinearLayout lista = (LinearLayout) activity.findViewById(R.id.lista_premios_lista_numeros);
 				
-				lista.addView(createTitleElement(R.string.kid_principal_prizes_title));
-				lista.addView(createListElement(R.string.kid_1_price, kidResponse.getPremio1()));
-				lista.addView(createListElement(R.string.kid_2_price, kidResponse.getPremio2()));
+				lista.addView(createTitleElement(R.string.kid_first_prize_title));
+				lista.addView(createTitleElement(R.string.kid_first_prize_title_2));
+				lista.addView(createListElement(R.string.kid_first_prize_amount_2, kidResponse.getPremio1()));
+				
+				lista.addView(createTitleElement(R.string.kid_second_prize_title));
+				lista.addView(createTitleElement(R.string.kid_second_prize_title_2));
+				lista.addView(createListElement(R.string.kid_second_prize_amount_2, kidResponse.getPremio2()));
 				
 				lista.addView(createTitleElement(R.string.kid_3_prizes_title));
+				lista.addView(createTitleElement(R.string.kid_3_prizes_title_2));
 				for(String s:kidResponse.getExtracciones5cifras()){
-					lista.addView(createListElement(-1, s));
+					lista.addView(createListElement(R.string.kid_3_prizes_amount_2, s));
 				}
 			    
-				lista.addView(createTitleElement(R.string.kid_special_prizes_title));
+				lista.addView(createTitleElement(R.string.kid_special_3_prizes_title));
+				lista.addView(createTitleElement(R.string.kid_special_3_prizes_title_2));
 				for(String s:kidResponse.getExtracciones3cifras()){
-					lista.addView(createListElement(-1, s));
+					lista.addView(createListElement(R.string.kid_special_3_prizes_amount_2, s));
 				}
+				lista.addView(createTitleElement(R.string.kid_special_2_prizes_title));
+				lista.addView(createTitleElement(R.string.kid_special_2_prizes_title_2));
 				for(String s:kidResponse.getExtracciones2cifras()){
-					lista.addView(createListElement(-1, s));
+					lista.addView(createListElement(R.string.kid_special_2_prizes_amount_2, s));
 				}
 				
 				lista.addView(createTitleElement(R.string.kid_r_prizes_title));
+				lista.addView(createTitleElement(R.string.kid_r_prizes_title_2));
 				for(String s:kidResponse.getReintegros()){
-					lista.addView(createListElement(-1, s));
+					lista.addView(createListElement(R.string.kid_r_prizes_amount_2, s));
 				}
 				
 			}	
@@ -67,7 +76,7 @@ public class UpdateAllKidPrice extends UpdateAllPrice {
 				LinearLayout elementoLista = (LinearLayout) inflater.inflate(R.layout.lista_elemento_numero, null);
 				TextView textoNumero = (TextView)elementoLista.findViewById(R.id.lista_numero);
 				TextView textoPremio = (TextView)elementoLista.findViewById(R.id.lista_premio);
-				if("-1".equals(numero)){
+				if(null== numero || "".equals(numero) || "-1".equals(numero)){
 					textoNumero.setText("-");
 				}else{
 					textoNumero.setText(numero);	

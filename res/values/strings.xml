@@ -19,19 +19,21 @@
     <string name="aniadir_numero_numero_string">número</string>
     <string name="error_aniadir_numero_string">Introduce número y cantidad</string>
     <string name="titulo_premios_string">Premios</string>
-    <string name="premio_gordo_string">Gordo:</string>
-    <string name="premio_2_string">2º premio:</string>
-    <string name="premio_3_string">3º premio:</string>
-    <string name="premio_4_string">4º premio:</string>
-    <string name="premio_4_1_string">4º premio:</string>
-    <string name="premio_5_string">5º premio:</string>
-    <string name="premio_5_1_string">5º premio:</string>
-    <string name="premio_5_2_string">5º premio:</string>
-    <string name="premio_5_3_string">5º premio:</string>
-    <string name="premio_5_4_string">5º premio:</string>
-    <string name="premio_5_5_string">5º premio:</string>
-    <string name="premio_5_6_string">5º premio:</string>
-    <string name="premio_5_7_string">5º premio:</string>
+    <string name="premio_gordo_string">Gordo</string>
+    <string name="premio_gordo_string_2">(400.000€ al décimo)</string>
+    <string name="premio_gordo_string_amount">400.000€</string>
+    <string name="premio_2_string">Segundo premio</string>
+    <string name="premio_2_string_2">(125.000€ al décimo)</string>
+    <string name="premio_2_string_amount">125.000€</string>
+    <string name="premio_3_string">Tercer premio</string>
+    <string name="premio_3_string_2">(50.000€ al décimo)</string>
+    <string name="premio_3_string_amount">50.000€</string>
+    <string name="premio_4_string">Cuartos premios</string>
+    <string name="premio_4_string_2">(20.000€ al décimo)</string>
+    <string name="premio_4_string_amount">20.000€</string>
+    <string name="premio_5_string">Quintos premios</string>
+    <string name="premio_5_string_2">(6.000€ al décimo)</string>
+    <string name="premio_5_string_amount">6.000€</string>
 
     <string name="androlot_service">androlot_service</string>
     
@@ -57,11 +59,24 @@
     <string name="notification_game_price_title">Aviso de Premio</string>
     <string name="notification_game_price_text" formatted="false">Tu numero %s ha sido premiado con %s€</string>
     
-    <string name="kid_principal_prizes_title">Premios principales</string>
+    <string name="kid_first_prize_title">Primer premio</string>
+    <string name="kid_first_prize_title_2">(200.000€ al décimo)</string>
+    <string name="kid_second_prize_title">Segundo premio</string>
+    <string name="kid_second_prize_title_2">(100.000€ al décimo)</string>
     <string name="kid_3_prizes_title">Terceros premios</string>
-    <string name="kid_special_prizes_title">Extracciones especiales</string>
+    <string name="kid_3_prizes_title_2">(1.400€ al décimo)</string>
+    <string name="kid_special_3_prizes_title">Extracciones 3 cifras</string>
+    <string name="kid_special_3_prizes_title_2">(100€ al décimo)</string>
+    <string name="kid_special_2_prizes_title">Extracciones 2 cifras</string>
+    <string name="kid_special_2_prizes_title_2">(40€ al décimo)</string>
     <string name="kid_r_prizes_title">Reintegros</string>
-    <string name="kid_1_price">1º premio</string>
-    <string name="kid_2_price">2º premio</string>
+    <string name="kid_r_prizes_title_2">(20€ al décimo)</string>
+    
+    <string name="kid_first_prize_amount_2">200.000€</string>
+    <string name="kid_second_prize_amount_2">100.000€</string>
+    <string name="kid_3_prizes_amount_2">1.400€</string>
+    <string name="kid_special_3_prizes_amount_2">100€</string>
+    <string name="kid_special_2_prizes_amount_2">40€</string>
+    <string name="kid_r_prizes_amount_2">20€</string>
     
 </resources>
