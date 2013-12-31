@@ -27,6 +27,9 @@ import com.androlot.util.SharedPreferencesUtil;
 
 public abstract class AbstractRunnableService implements  Runnable {
 	
+	public static final String ACTION = "action";
+	public static final String GAME_TYPE = "gameType";
+	
 	protected Thread t;
 	protected Context c;
 	protected Service s;
@@ -113,7 +116,8 @@ public abstract class AbstractRunnableService implements  Runnable {
 	protected void showNotification(String title, int icon, String message) {
 		
 		Intent resultIntent = new Intent(c, AndroLotActivity.class);
-		resultIntent.putExtra("action", NotificationActionsEnum.MyNumbers_Christmas.toString());
+		resultIntent.putExtra(ACTION, NotificationActionsEnum.MyNumbers.toString());
+		resultIntent.putExtra(GAME_TYPE, getNotificationGameType());
 		
 		NotificationCompat.Builder builder =  
 	            new NotificationCompat.Builder(c)  
@@ -135,5 +139,6 @@ public abstract class AbstractRunnableService implements  Runnable {
 	protected abstract List<TicketDto> findTickets();
 	protected abstract int getServiceId();
 	protected abstract int getTimeToWait();
+	protected abstract GameTypeEnum getNotificationGameType();
 
 }

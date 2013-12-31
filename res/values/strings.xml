@@ -79,4 +79,6 @@
     <string name="kid_special_2_prizes_amount_2">40€</string>
     <string name="kid_r_prizes_amount_2">20€</string>
     
+    <string name="my_number_time_checked">Última comprobación a las &lt;b&gt;%s€&lt;/b&gt;</string>
+    
 </resources>

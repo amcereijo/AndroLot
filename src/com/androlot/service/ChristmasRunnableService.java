@@ -34,4 +34,9 @@ public class ChristmasRunnableService extends AbstractRunnableService {
 		return TIME_TO_WAIT;
 	}
 
+	@Override
+	protected GameTypeEnum getNotificationGameType() {
+		return GameTypeEnum.ChristMas;
+	}
+
 }

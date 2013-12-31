@@ -28,6 +28,7 @@ import com.androlot.runnable.UpdateAllPrice;
 import com.androlot.runnable.UpdateAllPriceFactory;
 import com.androlot.runnable.UpdateButton;
 import com.androlot.runnable.UpdateMyNumbersView;
+import com.androlot.service.AbstractRunnableService;
 import com.androlot.service.ChristmasService;
 import com.androlot.service.KidService;
 import com.androlot.util.SharedPreferencesUtil;
@@ -39,8 +40,9 @@ import com.androlot.util.SharedPreferencesUtil;
  */
 public class AndroLotActivity extends BaseActivity {
 	
-	private static final String MY_NUMBER_TIME_CHECKED = "Última comprobación a las <b>%s</b>";
-
+	private final static String TITLE_FORMAT = "%s - %s";
+	
+	private String myNumberTimeChecked;
 	private GameTypeEnum gameType;
 	private ServiceController<?> serviceController;
 	private String gameTitle;
@@ -48,8 +50,6 @@ public class AndroLotActivity extends BaseActivity {
 	
 	private boolean principalShow = true;
 	private List<TicketDto> tickets;
-	private final static String TITLE_FORMAT = "%s - %s";
-	
 	private GameDbHelper gameDbHelper;
 	
 	
@@ -58,24 +58,35 @@ public class AndroLotActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_androlot);
 		
+		myNumberTimeChecked = getString(R.string.my_number_time_checked);
+		
 		prepareGameConfiguration();
 		checkServiceRunning();
 		setGameTitle();
 		
 		gameDbHelper = new GameDbHelper(this);
 		
-		doInitAction();
+		doInitAction();	
 	}
 
 	private void doInitAction() {
 		if(getIntent().getExtras()!=null && 
-				NotificationActionsEnum.MyNumbers_Christmas.toString().equals(getIntent().getStringExtra("action"))){
+				NotificationActionsEnum.MyNumbers.toString().equals(getIntent().getStringExtra(AbstractRunnableService.ACTION))){
+			prepareGameConfiguration();
 			initializeMyNumbers();
 			((Button)findViewById(R.id.check_prices_button)).requestFocus();
 		}
 	}
 
 	private void prepareGameConfiguration(){
+		if(getIntent().getExtras()!=null && 
+				getIntent().getExtras().get(AbstractRunnableService.GAME_TYPE)!=null){
+		
+			GameTypeEnum gameType = (GameTypeEnum)getIntent().getExtras().get(AbstractRunnableService.GAME_TYPE);
+			GameApplication.setGameType(gameType);
+			
+		}
+		
 		switch(GameApplication.getGameType()){
 			case ChristMas: 
 				serviceController = new ServiceController<ChristmasService>(new ChristmasService());
@@ -258,7 +269,7 @@ public class AndroLotActivity extends BaseActivity {
 	protected void showLastCheck(String moment) {
 		if(moment != null && !"".equals(moment)){
 			TextView lastUpdateText = (TextView)findViewById(R.id.lastCheclView);
-			lastUpdateText.setText(Html.fromHtml(String.format(MY_NUMBER_TIME_CHECKED, moment)));
+			lastUpdateText.setText(Html.fromHtml(String.format(myNumberTimeChecked, moment)));
 			lastUpdateText.setVisibility(View.VISIBLE);
 		}
 	}

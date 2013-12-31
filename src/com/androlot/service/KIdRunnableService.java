@@ -33,7 +33,10 @@ public class KIdRunnableService extends AbstractRunnableService {
 	protected int getTimeToWait() {
 		return TIME_TO_WAIT;
 	}
-	
-	
+
+	@Override
+	protected GameTypeEnum getNotificationGameType() {
+		return GameTypeEnum.Kid;
+	}
 
 }
