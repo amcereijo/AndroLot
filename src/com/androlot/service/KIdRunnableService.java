@@ -10,7 +10,7 @@ import com.androlot.enums.GameTypeEnum;
 
 public class KIdRunnableService extends AbstractRunnableService {
 
-	protected final static int TIME_TO_WAIT = 1000; 
+	protected final static int TIME_TO_WAIT = 60000; 
 	protected final static int MY_ID = 21092014;
 
 	public KIdRunnableService(Service s) {
