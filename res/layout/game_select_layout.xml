@@ -3,22 +3,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
     
-
+    
+    <TextView android:id="@+id/game_select_spliter_view"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"/>
+    
     <Button android:id="@+id/christmas_button"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_marginTop="100dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="75dp"
+        android:layout_alignParentTop="true"
         android:background="@drawable/christmas_button"
-        android:onClick="openChristmasGame"/>
+        android:onClick="openChristmasGame"
+        android:layout_toLeftOf="@id/game_select_spliter_view"/>
     
     <Button android:id="@+id/kid_button"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_marginTop="100dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="75dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/game_select_spliter_view"
         android:background="@drawable/kid_button"
         android:onClick="openKidGame"/>
     
