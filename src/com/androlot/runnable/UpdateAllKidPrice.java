@@ -72,19 +72,29 @@ public class UpdateAllKidPrice extends UpdateAllPrice {
 				return titleElement;
 			}
 			
-			private LinearLayout createListElement(int premio, String numero){
+			private LinearLayout createListElement(int prize, String number){
 				LinearLayout elementoLista = (LinearLayout) inflater.inflate(R.layout.lista_elemento_numero, null);
 				TextView textoNumero = (TextView)elementoLista.findViewById(R.id.lista_numero);
 				TextView textoPremio = (TextView)elementoLista.findViewById(R.id.lista_premio);
-				if(null== numero || "".equals(numero) || "-1".equals(numero)){
+				if(null== number || "".equals(number) || "-1".equals(number)){
 					textoNumero.setText("-");
 				}else{
-					textoNumero.setText(numero);	
+					textoNumero.setText(getNumberComplete(number));	
 				}
-				if(premio != -1){
-					textoPremio.setText(premio);
+				if(prize != -1){
+					textoPremio.setText(prize);
 				}
 				return elementoLista;
+			}
+			
+			public String getNumberComplete(String number){
+				String stringNumber = String.valueOf(number);
+				int times = 5-stringNumber.length();
+				StringBuffer strb = new StringBuffer();
+				for(int pos = 0;pos<times;pos++){
+					strb.append("0");
+				}
+				return strb.append(stringNumber).toString();
 			}
 			
 		});
