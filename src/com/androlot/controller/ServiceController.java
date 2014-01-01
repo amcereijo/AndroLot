@@ -2,35 +2,30 @@ package com.androlot.controller;
 
 import java.util.Calendar;
 
-import android.app.ActivityManager;
-import android.app.ActivityManager.RunningServiceInfo;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
+import com.androlot.application.GameApplication;
 import com.androlot.game.GameTime;
-import com.androlot.service.AndroLotService;
+import com.androlot.service.AbstractGameService;
 
-public class ServiceController {
+public class ServiceController<T extends AbstractGameService> {
 	
-	private Intent intentService;
-	private PendingIntent pintent;
-	private AlarmManager alarm;
+	private T serviceClass;
 	
-	
-	public ServiceController() { }
+	public ServiceController(T serviceClass) {
+		this.serviceClass = serviceClass;
+	}
 	
 	
 	public void startService(Context c){
-		intentService = new Intent(c, AndroLotService.class);
-		
-		
-		GameTime gameTime = new GameTime(c);
+		Intent intentService = new Intent(c, serviceClass.getClass());
+		GameTime gameTime = serviceClass.getGameTime();
 		if(gameTime.isNotTimeToStart()){
-			
-			pintent = PendingIntent.getService(c, 0, intentService, 0);
-			alarm = (AlarmManager)c.getSystemService(Context.ALARM_SERVICE);
+			PendingIntent pintent = PendingIntent.getService(c, 0, intentService, 0);
+			AlarmManager alarm = (AlarmManager)c.getSystemService(Context.ALARM_SERVICE);
 			
 			Calendar calendar = gameTime.getGameDate();
 
@@ -38,36 +33,24 @@ public class ServiceController {
 		}else{
 			c.startService(intentService);
 		}
+		
 	}
-
-
-	
 
 	
 	public void stopService(Context c){
-		if(alarm !=null && pintent !=null){
-			alarm.cancel(pintent);
-		}
-		if(intentService!=null){
+		Intent intentService = new Intent(c, serviceClass.getClass());
+		cancelAlarm(c, intentService);
+		
+		if(GameApplication.isServiceRunning(serviceClass.getClass())){
 			c.stopService(intentService);
-			intentService = null;
-		}else if(isMyServiceRunning(c)){
-			intentService = new Intent(c, AndroLotService.class);
-        	c.stopService(intentService);
-        	intentService = null;
 		}
 	}
-	
-	private boolean isMyServiceRunning(Context c) {
-	    ActivityManager manager = (ActivityManager) c.getSystemService(Context.ACTIVITY_SERVICE);
-	    for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-	        if (AndroLotService.class.getName().equals(service.service.getClassName())) {
-	            return true;
-	        }
-	    }
-	    return false;
+
+
+	private void cancelAlarm(Context c, Intent intentService) {
+		PendingIntent pintent = PendingIntent.getService(c, 0, intentService, 0);
+		AlarmManager alarm = (AlarmManager)c.getSystemService(Context.ALARM_SERVICE);
+		alarm.cancel(pintent);
 	}
-	
-	
 	
 }

@@ -21,10 +21,14 @@ import com.androlot.json.JsonUtil;
  * @author angelcereijo
  *
  */
-public class AndrolotHttp {
+public abstract class AndrolotHttp {
 	
-	private final static String API_URL = "http://api.elpais.com/ws/LoteriaNavidadPremiados";
-
+	/**
+	 * 
+	 * @return
+	 */
+	protected abstract String getApiUrl();
+	
 	/**
 	 * 
 	 * @param peticionDto
@@ -58,28 +62,13 @@ public class AndrolotHttp {
 	 * @throws RespuestaErrorException
 	 * @throws Exception
 	 */
-	public RespuestaResumenDto resumenPremios() throws
-		RespuestaErrorException, Exception{
-		RespuestaResumenDto respuestaResumenDto;
-		String peticion = "n="+SorteoDto.PETICION_NUMERO_RESUMEN;
-		//call
-		String jsonRespuesta = call(peticion);
-		jsonRespuesta = jsonRespuesta.replaceAll("premios=", "");
-		//fromJson to base
-		JsonUtil<RespuestaResumenDto> jsonUtilResp = new JsonUtil<RespuestaResumenDto>();
-		respuestaResumenDto = (RespuestaResumenDto)jsonUtilResp.fromJsonToObject(jsonRespuesta, RespuestaResumenDto.class);
-			//--error?
-		if(respuestaResumenDto.getError() == SorteoDto.RESPUESTA_ERROR){
-			//exception
-			throw new RespuestaErrorException();
-		}
-		return respuestaResumenDto;
-	}
+	public abstract RespuestaResumenDto resumenPremios() throws
+		RespuestaErrorException, Exception; 
+	
 
-
-	private String call(String peticion) throws Exception{
+	protected String call(String peticion) throws Exception{
 		String jsonRespuesta = "";
-		URL url = new URL(API_URL+"?"+peticion);
+		URL url = new URL(getApiUrl()+"?"+peticion);
     	DefaultHttpClient client = new DefaultHttpClient();
     	HttpGet get = new HttpGet(url.toURI());
     	ResponseHandler<String> responseHandler = new BasicResponseHandler();

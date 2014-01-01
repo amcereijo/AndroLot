@@ -2,17 +2,15 @@ package com.androlot.game;
 
 import java.util.Calendar;
 
-import android.content.Context;
-
-import com.androlot.manager.ChristmasProperties;
+import com.androlot.manager.AbstractGamePropertiesLoadar;
 import com.androlot.manager.ManagerPropertiesLoader;
 
 public class GameTime {
 
-	private ChristmasProperties cP;
+	private AbstractGamePropertiesLoadar cP;
 	
-	public GameTime(Context c){
-		cP = new ManagerPropertiesLoader<ChristmasProperties>().loadProperties(c, new ChristmasProperties());
+	public GameTime(AbstractGamePropertiesLoadar propertiesLoader){
+		cP = new ManagerPropertiesLoader<AbstractGamePropertiesLoadar>().loadProperties(propertiesLoader);
 	}
 	
 	public Calendar getGameDate() {

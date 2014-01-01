@@ -9,9 +9,9 @@ import android.content.res.Resources;
 
 import com.androlot.application.GameApplication;
 
-public class ChristmasProperties extends AbstractGamePropertiesLoadar{
+public class KidProperties extends AbstractGamePropertiesLoadar {
 
-	private final static String FILE_NAME = "christmas.conf.properties";
+	private final static String FILE_NAME = "kid.conf.properties";
 	
 	public void doLoad() {
 		Resources resources = GameApplication.getContext().getResources();
@@ -30,7 +30,5 @@ public class ChristmasProperties extends AbstractGamePropertiesLoadar{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	    
 	}
-	
 }
