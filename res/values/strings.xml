@@ -61,10 +61,14 @@
     
     <string name="kid_first_prize_title">Primer premio</string>
     <string name="kid_first_prize_title_2">(200.000€ al décimo)</string>
+    <string name="kid_special_fraccion_serie_title">Premio especial</string>
+    <string name="kid_special_fraccion_serie_title_2">(40.000.000€ al décimo)</string>
+    <string name="kid_special_fraccion_serie_text" formatted="false">Fracción: %s | Serie: %s</string>
+        
     <string name="kid_second_prize_title">Segundo premio</string>
-    <string name="kid_second_prize_title_2">(100.000€ al décimo)</string>
-    <string name="kid_3_prizes_title">Terceros premios</string>
-    <string name="kid_3_prizes_title_2">(1.400€ al décimo)</string>
+    <string name="kid_second_prize_title_2">(75.000€ al décimo)</string>
+    <string name="kid_3_prize_title">Tercer premio</string>
+    <string name="kid_3_prize_title_2">(25.000€ al décimo)</string>
     <string name="kid_special_3_prizes_title">Extracciones 3 cifras</string>
     <string name="kid_special_3_prizes_title_2">(100€ al décimo)</string>
     <string name="kid_special_2_prizes_title">Extracciones 2 cifras</string>
@@ -73,8 +77,9 @@
     <string name="kid_r_prizes_title_2">(20€ al décimo)</string>
     
     <string name="kid_first_prize_amount_2">200.000€</string>
-    <string name="kid_second_prize_amount_2">100.000€</string>
-    <string name="kid_3_prizes_amount_2">1.400€</string>
+    <string name="kid_special_fraccion_serie_amount">40.000.000€</string>
+    <string name="kid_second_prize_amount_2">75.000€</string>
+    <string name="kid_3_prize_amount_2">25.000€</string>
     <string name="kid_special_3_prizes_amount_2">100€</string>
     <string name="kid_special_2_prizes_amount_2">40€</string>
     <string name="kid_r_prizes_amount_2">20€</string>

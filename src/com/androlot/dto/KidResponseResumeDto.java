@@ -5,9 +5,10 @@ public class KidResponseResumeDto extends RespuestaResumenDto {
 	private static final long serialVersionUID = -264994722088607151L;
 	
 	private String premio1; //:	1er. premio del sorteo o -1 si aún no ha salido.
+	private String fraccionPremio1; // fracción del premio especial o -1 si no ha salido
+	private String seriePremio1; // serie del premio especial o -1 si no ha salido
 	private String premio2; //:	segundo premio o -1 si aún no ha salido.
-	private String numero3; //:	tercer premio o -1 si aún no ha salido.
-	private String[] extracciones5cifras = new String[12];//:	terceros array con las 12 extracciones de 5 cifras o -1 si aún no ha salido.
+	private String premio3; //:	tercer premio o -1 si aún no ha salido.
 	
 	private String[] extracciones3cifras = new String[14]; //	array con las 14 extracciones de 3 cifras o -1 si aún no ha salido.
 	private String[] extracciones2cifras = new String[5]; //:	array con las 5 extracciones de 2 cifras o -1 si aún no ha salido.
@@ -39,17 +40,23 @@ public class KidResponseResumeDto extends RespuestaResumenDto {
 	public void setPremio2(String premio2) {
 		this.premio2 = premio2;
 	}
-	public String getNumero3() {
-		return numero3;
+	public String getPremio3() {
+		return premio3;
 	}
-	public void setNumero3(String numero3) {
-		this.numero3 = numero3;
+	public void setPremio3(String premio3) {
+		this.premio3 = premio3;
 	}
-	public String[] getExtracciones5cifras() {
-		return extracciones5cifras;
+	public String getFraccionPremio1() {
+		return fraccionPremio1;
 	}
-	public void setExtracciones5cifras(String[] extracciones5cifras) {
-		this.extracciones5cifras = extracciones5cifras;
+	public void setFraccionPremio1(String fraccionPremio1) {
+		this.fraccionPremio1 = fraccionPremio1;
+	}
+	public String getSeriePremio1() {
+		return seriePremio1;
+	}
+	public void setSeriePremio1(String seriePremio1) {
+		this.seriePremio1 = seriePremio1;
 	}
 	public String[] getExtracciones3cifras() {
 		return extracciones3cifras;

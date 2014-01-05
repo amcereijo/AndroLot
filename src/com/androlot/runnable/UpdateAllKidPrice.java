@@ -36,16 +36,21 @@ public class UpdateAllKidPrice extends UpdateAllPrice {
 				lista.addView(createTitleElement(R.string.kid_first_prize_title_2));
 				lista.addView(createListElement(R.string.kid_first_prize_amount_2, kidResponse.getPremio1()));
 				
+				lista.addView(createTitleElement(R.string.kid_special_fraccion_serie_title));
+				lista.addView(createTitleElement(R.string.kid_special_fraccion_serie_title_2));
+				String specialPrice = String.format(activity.getString(R.string.kid_special_fraccion_serie_text), 
+						getPriceText(kidResponse.getFraccionPremio1()),
+						getPriceText(kidResponse.getSeriePremio1()));
+				lista.addView(createListElement(R.string.kid_special_fraccion_serie_amount, specialPrice));
+				
 				lista.addView(createTitleElement(R.string.kid_second_prize_title));
 				lista.addView(createTitleElement(R.string.kid_second_prize_title_2));
 				lista.addView(createListElement(R.string.kid_second_prize_amount_2, kidResponse.getPremio2()));
 				
-				lista.addView(createTitleElement(R.string.kid_3_prizes_title));
-				lista.addView(createTitleElement(R.string.kid_3_prizes_title_2));
-				for(String s:kidResponse.getExtracciones5cifras()){
-					lista.addView(createListElement(R.string.kid_3_prizes_amount_2, s));
-				}
-			    
+				lista.addView(createTitleElement(R.string.kid_3_prize_title));
+				lista.addView(createTitleElement(R.string.kid_3_prize_title_2));
+				lista.addView(createListElement(R.string.kid_3_prize_amount_2, kidResponse.getPremio3()));
+				
 				lista.addView(createTitleElement(R.string.kid_special_3_prizes_title));
 				lista.addView(createTitleElement(R.string.kid_special_3_prizes_title_2));
 				for(String s:kidResponse.getExtracciones3cifras()){
@@ -76,15 +81,22 @@ public class UpdateAllKidPrice extends UpdateAllPrice {
 				LinearLayout elementoLista = (LinearLayout) inflater.inflate(R.layout.lista_elemento_numero, null);
 				TextView textoNumero = (TextView)elementoLista.findViewById(R.id.lista_numero);
 				TextView textoPremio = (TextView)elementoLista.findViewById(R.id.lista_premio);
-				if(null== number || "".equals(number) || "-1".equals(number)){
-					textoNumero.setText("-");
-				}else{
-					textoNumero.setText(getNumberComplete(number));	
-				}
+				
+				textoNumero.setText(getPriceText(number));
+				
 				if(prize != -1){
 					textoPremio.setText(prize);
 				}
 				return elementoLista;
+			}
+			
+			public String getPriceText(String number){
+				String returnNumber = "-";
+				if(null!= number && !"".equals(number) && !"-1".equals(number)){
+					returnNumber = getNumberComplete(number);	
+				}
+				
+				return returnNumber;
 			}
 			
 			public String getNumberComplete(String number){

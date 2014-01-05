@@ -7,7 +7,8 @@
 
     <TextView
         android:id="@+id/lista_premio"
-        android:layout_width="160dp"
+        android:layout_width="0dp"
+	    android:layout_weight=".40"
         android:layout_height="wrap_content" 
         android:textColor="@android:color/black"
         android:textStyle="bold"
@@ -16,7 +17,8 @@
 
     <TextView
         android:id="@+id/lista_numero"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
+	    android:layout_weight=".60"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
         android:background="@android:color/white"
