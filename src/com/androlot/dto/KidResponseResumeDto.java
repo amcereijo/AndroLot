@@ -5,8 +5,8 @@ public class KidResponseResumeDto extends RespuestaResumenDto {
 	private static final long serialVersionUID = -264994722088607151L;
 	
 	private String premio1; //:	1er. premio del sorteo o -1 si aún no ha salido.
-	private String fraccionPremio1; // fracción del premio especial o -1 si no ha salido
-	private String seriePremio1; // serie del premio especial o -1 si no ha salido
+	private String premio1Fraccion; // fracción del premio especial o -1 si no ha salido
+	private String premio1Serie; // serie del premio especial o -1 si no ha salido
 	private String premio2; //:	segundo premio o -1 si aún no ha salido.
 	private String premio3; //:	tercer premio o -1 si aún no ha salido.
 	
@@ -46,17 +46,17 @@ public class KidResponseResumeDto extends RespuestaResumenDto {
 	public void setPremio3(String premio3) {
 		this.premio3 = premio3;
 	}
-	public String getFraccionPremio1() {
-		return fraccionPremio1;
+	public void setPremio1Fraccion(String premio1Fraccion) {
+		this.premio1Fraccion = premio1Fraccion;
 	}
-	public void setFraccionPremio1(String fraccionPremio1) {
-		this.fraccionPremio1 = fraccionPremio1;
+	public String getPremio1Fraccion() {
+		return premio1Fraccion;
 	}
-	public String getSeriePremio1() {
-		return seriePremio1;
+	public void setPremio1Serie(String premio1Serie) {
+		this.premio1Serie = premio1Serie;
 	}
-	public void setSeriePremio1(String seriePremio1) {
-		this.seriePremio1 = seriePremio1;
+	public String getPremio1Serie() {
+		return premio1Serie;
 	}
 	public String[] getExtracciones3cifras() {
 		return extracciones3cifras;

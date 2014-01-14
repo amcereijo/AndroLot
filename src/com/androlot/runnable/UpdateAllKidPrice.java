@@ -34,22 +34,22 @@ public class UpdateAllKidPrice extends UpdateAllPrice {
 				
 				lista.addView(createTitleElement(R.string.kid_first_prize_title));
 				lista.addView(createTitleElement(R.string.kid_first_prize_title_2));
-				lista.addView(createListElement(R.string.kid_first_prize_amount_2, kidResponse.getPremio1()));
+				lista.addView(createListElement(R.string.kid_first_prize_amount_2, getPriceText(kidResponse.getPremio1())));
 				
 				lista.addView(createTitleElement(R.string.kid_special_fraccion_serie_title));
 				lista.addView(createTitleElement(R.string.kid_special_fraccion_serie_title_2));
 				String specialPrice = String.format(activity.getString(R.string.kid_special_fraccion_serie_text), 
-						getPriceText(kidResponse.getFraccionPremio1()),
-						getPriceText(kidResponse.getSeriePremio1()));
-				lista.addView(createListElement(R.string.kid_special_fraccion_serie_amount, specialPrice));
+						kidResponse.getPremio1Fraccion(),
+						kidResponse.getPremio1Serie());
+				lista.addView(createListElement(R.string.kid_special_fraccion_serie_amount, getPriceText(specialPrice)));
 				
 				lista.addView(createTitleElement(R.string.kid_second_prize_title));
 				lista.addView(createTitleElement(R.string.kid_second_prize_title_2));
-				lista.addView(createListElement(R.string.kid_second_prize_amount_2, kidResponse.getPremio2()));
+				lista.addView(createListElement(R.string.kid_second_prize_amount_2, getPriceText(kidResponse.getPremio2())));
 				
 				lista.addView(createTitleElement(R.string.kid_3_prize_title));
 				lista.addView(createTitleElement(R.string.kid_3_prize_title_2));
-				lista.addView(createListElement(R.string.kid_3_prize_amount_2, kidResponse.getPremio3()));
+				lista.addView(createListElement(R.string.kid_3_prize_amount_2, getPriceText(kidResponse.getPremio3())));
 				
 				lista.addView(createTitleElement(R.string.kid_special_3_prizes_title));
 				lista.addView(createTitleElement(R.string.kid_special_3_prizes_title_2));
@@ -82,7 +82,7 @@ public class UpdateAllKidPrice extends UpdateAllPrice {
 				TextView textoNumero = (TextView)elementoLista.findViewById(R.id.lista_numero);
 				TextView textoPremio = (TextView)elementoLista.findViewById(R.id.lista_premio);
 				
-				textoNumero.setText(getPriceText(number));
+				textoNumero.setText(number);
 				
 				if(prize != -1){
 					textoPremio.setText(prize);
