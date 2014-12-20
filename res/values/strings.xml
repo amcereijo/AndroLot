@@ -51,7 +51,7 @@
     <string name="help_layout_service_text">Activando la opción \"Monitorizar Sorteo\" activarás una función que te mostrará una notificación sí alguno de tus números guardados recibe un premio.\nEsta funcionalidad no se activará hasta la fecha de incio del sorteo y se detendrá automáticamente cuando finalice.</string>
 	<string name="euro">€</string>
 	<string name="donnate">&lt;br/&gt;Comparte tu suerte, elige una ONG y ayuda &lt;a href=\"http://www.guiaongs.org\"&gt;http://www.guiaongs.org&lt;/a&gt;</string>
-	<string name="my_number_play">Juegas &lt;b&gt;%s€&lt;/b&gt; al número</string>
+	<string name="my_number_play">Juegas &lt;b&gt;%s€&lt;/b&gt; al número </string>
 	<string name="my_number_win">&lt;b&gt;Has ganado %s€&lt;/b&gt;</string>
 	<string name="my_number_no_price">No hay premio</string>
     <string name="notification_title">NaviLotoDroid</string>
