@@ -28,7 +28,6 @@ public class ServiceController<T extends AbstractGameService> {
 			AlarmManager alarm = (AlarmManager)c.getSystemService(Context.ALARM_SERVICE);
 			
 			Calendar calendar = gameTime.getGameDate();
-
 			alarm.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pintent);
 		}else{
 			c.startService(intentService);

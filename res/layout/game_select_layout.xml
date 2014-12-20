@@ -13,12 +13,15 @@
         android:layout_marginRight="25dp"
         android:layout_marginLeft="25dp"/>
     
+	    
     <Button android:id="@+id/christmas_button"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_marginTop="100dp"
         android:layout_alignParentTop="true"
-        android:background="@drawable/christmas_button"
+        android:drawableLeft="@drawable/christmas_button"
+        android:padding="10dp"
+        android:background="@drawable/button_styles"
         android:onClick="openChristmasGame"
         android:layout_toLeftOf="@id/game_select_spliter_view"/>
     
@@ -28,7 +31,9 @@
         android:layout_marginTop="100dp"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@id/game_select_spliter_view"
-        android:background="@drawable/kid_button"
+        android:drawableLeft="@drawable/kid_button"
+        android:padding="10dp"
+        android:background="@drawable/button_styles"
         android:onClick="openKidGame"/>
     
 </RelativeLayout>

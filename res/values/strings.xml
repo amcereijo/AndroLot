@@ -86,4 +86,6 @@
     
     <string name="my_number_time_checked">Última comprobación a las &lt;b&gt;%s€&lt;/b&gt;</string>
     
+    <string name="service_scheduled" formatted="false">Seguimiento de sorteo programado a fecha de %s.\nSí ha apagado el dispositivo desde entonces, vuelva a programarlo.</string>
+    
 </resources>

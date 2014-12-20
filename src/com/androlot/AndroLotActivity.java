@@ -1,8 +1,13 @@
 package com.androlot;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -62,6 +67,8 @@ public class AndroLotActivity extends BaseActivity {
 		
 		prepareGameConfiguration();
 		checkServiceRunning();
+		showServiceActive();
+		
 		setGameTitle();
 		
 		gameDbHelper = new GameDbHelper(this);
@@ -110,9 +117,8 @@ public class AndroLotActivity extends BaseActivity {
 
 
 	private void checkServiceRunning(){
-		if(GameApplication.isServiceRunning(classGameType)){
-			((ToggleButton)findViewById(R.id.service_button)).setChecked(Boolean.TRUE);
-		}
+		boolean isServiceRuning = (GameApplication.isServiceRunning(classGameType));
+		((ToggleButton)findViewById(R.id.service_button)).setChecked(isServiceRuning);
 	}
 
 	protected void initializeMyNumbers() {
@@ -130,6 +136,7 @@ public class AndroLotActivity extends BaseActivity {
 			principalShow = true;
 			setGameTitle();
 			checkServiceRunning();
+			showServiceActive();
 		}
 	}
 	
@@ -298,13 +305,55 @@ public class AndroLotActivity extends BaseActivity {
 	 * @param v
 	 */
 	public void toggleService(View v){
-		boolean on = ((ToggleButton) v).isChecked();
-	    if (on) {
+		boolean isSheduled = getTimeServiceScheduled() !=0;
+	    if (!isSheduled) {
 	    	serviceController.startService(this);
+	    	toogleServiceActive(true);
 	    } else {
 	    	serviceController.stopService(this);
+	    	toogleServiceActive(false);
 	    }
+	    showServiceActive();
+	    checkServiceRunning();
 	}
+	
+	private void toogleServiceActive(boolean toogle) {
+		SharedPreferences sharedPref = getSharedPreferences(GameApplication.SHARED_FILE_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sharedPref.edit();
+		if(toogle) {
+			editor.putLong(this.gameType.name(), System.currentTimeMillis());
+			showServiceActive();
+		} else {
+			editor.remove(this.gameType.name());
+		}
+		editor.commit();
+	}
+	
+	private long getTimeServiceScheduled() {
+		SharedPreferences sharedPref = getSharedPreferences(GameApplication.SHARED_FILE_NAME, Context.MODE_PRIVATE);
+		long timeScheduled = sharedPref.getLong(this.gameType.name(), 0);
+		return timeScheduled;
+	}
+	
+	private void showServiceActive(){
+		long timeScheduled = getTimeServiceScheduled();
+		TextView scheduledTest = (TextView)findViewById(R.id.scheduled_text);
+		if(timeScheduled != 0) {
+			scheduledTest.setText(String.format(getText(R.string.service_scheduled).toString(), getDate(timeScheduled)));
+			scheduledTest.setVisibility(View.VISIBLE);
+		}else{
+			scheduledTest.setVisibility(View.GONE);
+		}
+	}
+	
+	private String getDate(long milliSeconds){
+		String dateFormat = "dd/MM/yyyy hh:mm:ss.SSS";
+	    SimpleDateFormat formatter = new SimpleDateFormat(dateFormat, new Locale("es")); 
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(milliSeconds);
+		return formatter.format(calendar.getTime());
+	}
+	
 	
 	/**
 	 * 

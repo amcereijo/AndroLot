@@ -9,6 +9,7 @@ import com.androlot.enums.GameTypeEnum;
 
 public class GameApplication extends Application {
 
+	public final static String SHARED_FILE_NAME = "Androlot";
 	private static GameTypeEnum gameType;
 	private static GameApplication gameApplication;
 	private static Context context;

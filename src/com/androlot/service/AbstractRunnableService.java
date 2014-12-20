@@ -7,11 +7,13 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.androlot.AndroLotActivity;
 import com.androlot.R;
+import com.androlot.application.GameApplication;
 import com.androlot.db.GameDbHelper;
 import com.androlot.dto.PeticionDto;
 import com.androlot.dto.RespuestaNumeroDto;
@@ -53,7 +55,7 @@ public abstract class AbstractRunnableService implements  Runnable {
 	
 	@Override
 	public void run() {
-		AndrolotHttp http = AndrolotFactory.getInstance(GameTypeEnum.ChristMas);
+		AndrolotHttp http = AndrolotFactory.getInstance(getNotificationGameType());
 
 		while(t!=null){
 			Log.i("alServiceThread", "Execute...");
@@ -110,6 +112,11 @@ public abstract class AbstractRunnableService implements  Runnable {
 		showNotification(c.getString(R.string.notification_title), R.drawable.ic_launcher, "El sorteo ha finalizado.");
 		t = null;
 		s.stopSelf();
+		
+		SharedPreferences sharedPref = c.getSharedPreferences(GameApplication.SHARED_FILE_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sharedPref.edit();
+		editor.remove(getNotificationGameType().name());
+		editor.commit();
 	}
 
 	

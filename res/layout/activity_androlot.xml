@@ -53,13 +53,24 @@
 	    android:textColor="@android:color/white"
 	    android:textStyle="bold"/>
 	
+	<TextView android:id="@+id/scheduled_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:layout_below="@id/service_button"
+        android:layout_marginBottom="20dp"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:visibility="gone"/>
+	
+	
 	
 	<Button android:id="@+id/main_btn_start_help"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_marginTop="20dp"
 	    android:layout_centerInParent="true"
-	    android:layout_below="@id/service_button"
+	    android:layout_below="@id/scheduled_text"
 	    android:onClick="showHelp"
 	    android:background="@null"
 	    android:drawableRight="@drawable/help"
